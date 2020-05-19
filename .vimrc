@@ -117,7 +117,12 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 set backspace=indent,eol,start
 filetype plugin indent on 
 set tabstop=4 shiftwidth=4 expandtab
+" editor
+set number " show relative numbers for all except for current:w
 set relativenumber
+set ignorecase " ignore case unless there is a capitalized letter
+set smartcase
+
 set listchars=tab:\|\ 
 set list
 set wildmenu
@@ -126,5 +131,3 @@ set encoding=utf-8
 set autoindent
 set cindent
 set cc=100
-set ignorecase
-set smartcase
