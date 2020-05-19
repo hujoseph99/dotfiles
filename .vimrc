@@ -84,13 +84,13 @@ let g:airline_theme = 'gruvbox'
 " -------------- map hotkeys --------------------
 map mm <C-w>
 " screen movement
-map <C-b> gk
-map <C-f> gj
-map <C-e> gu
-map <C-y> gi
-map <C-d> gn
-map <C-u> gm
-" -------------- indentguides -------------------
+map gk <C-b> 
+map gj <C-f> 
+map gu <C-e> 
+map gi <C-y> 
+map gn <C-d> 
+map gm <C-u> 
+" ---- ---------- indentguides -------------------
 let g:indentLine_char = '¦'
 
 "-------------- easyMotion + incsearch  -------------------
