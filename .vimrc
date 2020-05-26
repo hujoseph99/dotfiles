@@ -84,12 +84,12 @@ let g:airline_theme = 'gruvbox'
 " -------------- map hotkeys --------------------
 map mm <C-w>
 " screen movement
-map gk <C-e> 
-map gj <C-y> 
-map gu <C-b> 
-map gi <C-f> 
-map gn <C-d> 
-map gm <C-u> 
+map gn <C-b> 
+map gm <C-f> 
+map gk <C-d> 
+map gj <C-u> 
+map gu <C-e> 
+map gi <C-y> 
 " ---- ---------- indentguides -------------------
 let g:indentLine_char = '¦'
 
