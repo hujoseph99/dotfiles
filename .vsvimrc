@@ -1,0 +1,16 @@
+" screen movement
+map gm <C-b> 
+map gn <C-f> 
+map gj <C-d> 
+map gk <C-u> 
+map gu <C-e> 
+map gi <C-y> 
+
+set number " show relative numbers for all except for current:w
+set relativenumber
+set ignorecase " ignore case unless there is a capitalized letter
+set smartcase
+
+set list
+set wildmode=longest,list,full
+set wildmenu
