@@ -27,9 +27,6 @@ Plugin 'jiangmiao/auto-pairs'
 "" Commentary
 Plugin 'tpope/vim-commentary'
 
-" YouCompleteMe
-Plugin 'valloric/youcompleteme'
-
 " Go
 Plugin 'fatih/vim-go'
 
@@ -50,8 +47,16 @@ Plugin 'haya14busa/incsearch.vim'
 
 " incsearch + easymotion
 Plugin 'haya14busa/incsearch-easymotion.vim'
+
+" YCM
+Plugin 'ycm-core/YouCompleteMe'
+
 " gruvbox color scheme
 Plugin 'morhetz/gruvbox'
+
+" Dracula color scheme
+Plugin 'dracula/vim', { 'name': 'dracula' }
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -78,18 +83,31 @@ endif
 let g:gruvbox_contrast_dark='hard'
 colorscheme gruvbox
 
+let g:go_highlight_structs = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_types = 1
+
 " -------------- airline settings --------------------
 let g:airline_theme = 'gruvbox'
 
 " -------------- map hotkeys --------------------
+let mapleader=" "
 map mm <C-w>
+
 " screen movement
 map gm <C-b> 
 map gn <C-f> 
-map gj <C-d> 
-map gk <C-u> 
 map gu <C-e> 
 map gi <C-y> 
+map gj <C-d> 
+map gk <C-u> 
+
+" jump to definition in new tab
+nmap <leader>d <Plug>(go-def-tab)
+
 " ---- ---------- indentguides -------------------
 let g:indentLine_char = '¦'
 
@@ -105,14 +123,20 @@ map m <Plug>(easymotion-prefix)
 " map mw <Plug>(easymotion-w)
 " map mb <Plug>(easymotion-b) 
 " map mf <Plug>(easymotion-f)
+
 " -------------- commentary -------------------
-map md gcc
+map <leader>c gcc
+
+" -------------- YouCompleteMe -------------------
+nmap J <plug>(YCMHover)
+nnoremap <leader><leader>r :YcmForceCompileAndDiagnostics<CR>
+
 " -------------- nerdTree -------------------
 " Opens nerd tree with ctrl-n
-map <C-n> :NERDTreeToggle<CR>
+map <leader><leader>n :NERDTreeToggle<CR>
 " Closes nerd tree if only window open is the nerd tree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" -------------- brackets -------------------
+
 " -------------- miscallenous -------------------
 set backspace=indent,eol,start
 filetype plugin indent on 
@@ -130,4 +154,4 @@ set so=10
 set encoding=utf-8
 set autoindent
 set cindent
-set cc=100
+set cc=80
