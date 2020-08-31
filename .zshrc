@@ -9,6 +9,7 @@ export GOPATH=$HOME/go
 alias linux="ssh j268hu@linux.student.cs.uwaterloo.ca"
 alias school="cd /Users/josephhu/Documents/Joseph/university/1201\ -\ 2020\ Winter" 
 alias crack="cd /Users/josephhu/Documents/Joseph/coding/learning/ctci-solutions"
+alias leetcode="cd /Users/josephhu/Documents/Joseph/coding/leetcode"
 alias joseph="cd /Users/josephhu/Documents/Joseph/"
 alias g++14="g++ -std=c++14"
 alias crackg++="g++ -std=c++14 -o exec"
@@ -16,8 +17,8 @@ alias typing="cd /Users/josephhu/Documents/Joseph/coding/projects/typing"
 alias typingbackend="cd /Users/josephhu/go/src/github.com/hujoseph99/typing_backend"
 alias learngo="cd /Users/josephhu/Documents/Joseph/coding/learning/go-essential-training"
 alias qmk="cd ~/Documents/QMK"
-alias zshrc="vim ~/.zshrc"
-alias vimrc="vim ~/.vimrc"
+alias zshrc="nvim ~/.zshrc"
+alias nvimrc="nvim ~/.config/nvim/init.vim"
 alias dotfiles="cd /Users/josephhu/Documents/Joseph/coding/dotfiles"
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -96,4 +97,3 @@ POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='red'
 
 # Add a new line after the global prompt 
 POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
-
