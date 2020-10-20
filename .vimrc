@@ -49,7 +49,10 @@ Plugin 'haya14busa/incsearch.vim'
 Plugin 'haya14busa/incsearch-easymotion.vim'
 
 " YCM
-Plugin 'ycm-core/YouCompleteMe'
+" Plugin 'ycm-core/YouCompleteMe'
+
+" Obsession
+Plugin 'tpope/vim-obsession'
 
 " gruvbox color scheme
 Plugin 'morhetz/gruvbox'
@@ -80,8 +83,9 @@ syntax on
 if (has("termguicolors"))
     set termguicolors
 endif
-let g:gruvbox_contrast_dark='hard'
+
 colorscheme gruvbox
+set background=dark
 
 let g:go_highlight_structs = 1
 let g:go_highlight_methods = 1
@@ -94,8 +98,9 @@ let g:go_highlight_types = 1
 let g:airline_theme = 'gruvbox'
 
 " -------------- map hotkeys --------------------
+"
+nnoremap <SPACE> <Nop>
 let mapleader=" "
-map mm <C-w>
 
 " screen movement
 map gm <C-b> 
@@ -105,6 +110,19 @@ map gi <C-y>
 map gj <C-d> 
 map gk <C-u> 
 
+map <leader>1 1gt
+map <leader>2 2gt
+map <leader>3 3gt
+map <leader>4 4gt
+map <leader>5 5gt
+map <leader>6 6gt
+map <leader>7 7gt
+map <leader>8 8gt
+map <leader>9 9gt
+
+map <leader><leader>j :sh<CR>
+map <leader>w <C-w>
+
 " jump to definition in new tab
 nmap <leader>d <Plug>(go-def-tab)
 
@@ -113,10 +131,9 @@ let g:indentLine_char = '¦'
 
 "-------------- easyMotion + incsearch  -------------------
 " map <Leader><Leader> <Plug>(easymotion-prefix)
-map / <Plug>(incsearch-easymotion-/)
-map ? <Plug>(incsearch-easymotion-?)
-map g/ <Plug>(incsearch-easymotion-stay)
-map m <Plug>(easymotion-prefix)
+" map / <Plug>(incsearch-easymotion-/)
+" map ? <Plug>(incsearch-easymotion-?)
+" map g/ <Plug>(incsearch-easymotion-stay)
 " map /  <Plug>(incsearch-forward)
 " map ?  <Plug>(incsearch-backward)
 " map g/ <Plug>(incsearch-stay)
@@ -131,6 +148,11 @@ map <leader>c gcc
 nmap J <plug>(YCMHover)
 nnoremap <leader><leader>r :YcmForceCompileAndDiagnostics<CR>
 
+" -------------- vim indent lines -------------------
+let g:indentLine_setColors = 0
+let g:indentLine_char = '¦'
+let g:indentLine_color_term = 242
+
 " -------------- nerdTree -------------------
 " Opens nerd tree with ctrl-n
 map <leader><leader>n :NERDTreeToggle<CR>
@@ -140,12 +162,14 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " -------------- miscallenous -------------------
 set backspace=indent,eol,start
 filetype plugin indent on 
-set tabstop=4 shiftwidth=4 expandtab
+set tabstop=4 shiftwidth=4 expandtab softtabstop
 " editor
 set number " show relative numbers for all except for current:w
 set relativenumber
 set ignorecase " ignore case unless there is a capitalized letter
 set smartcase
+set autoread " automatically load changed files when open
+set noswapfile " do not want swap files
 
 set listchars=tab:\|\ 
 set list
@@ -154,4 +178,4 @@ set so=10
 set encoding=utf-8
 set autoindent
 set cindent
-set cc=80
+set cc=100
