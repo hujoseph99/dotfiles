@@ -51,6 +51,9 @@ Plugin 'haya14busa/incsearch-easymotion.vim'
 " YCM
 " Plugin 'ycm-core/YouCompleteMe'
 
+" Completor
+Plugin 'maralla/completor.vim'
+
 " Obsession
 Plugin 'tpope/vim-obsession'
 
@@ -60,6 +63,8 @@ Plugin 'morhetz/gruvbox'
 " Dracula color scheme
 Plugin 'dracula/vim', { 'name': 'dracula' }
 
+" Material
+Plugin 'kaicataldo/material.vim', { 'branch': 'main' }
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -84,6 +89,9 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
+" let g:material_theme_style = 'darker'
+" let g:material_terminal_italics = 1
+" colorscheme material
 colorscheme gruvbox
 set background=dark
 
@@ -96,6 +104,7 @@ let g:go_highlight_types = 1
 
 " -------------- airline settings --------------------
 let g:airline_theme = 'gruvbox'
+" let g:airline_theme = 'material'
 
 " -------------- map hotkeys --------------------
 "
@@ -148,6 +157,13 @@ map <leader>c gcc
 nmap J <plug>(YCMHover)
 nnoremap <leader><leader>r :YcmForceCompileAndDiagnostics<CR>
 
+" ------------- Completor -------------------
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+
+noremap <silent> <leader>d :call completor#do('definition')<CR>
+noremap <silent> <leader>s :call completor#do('hover')<CR>
 " -------------- vim indent lines -------------------
 let g:indentLine_setColors = 0
 let g:indentLine_char = '¦'
@@ -170,6 +186,7 @@ set ignorecase " ignore case unless there is a capitalized letter
 set smartcase
 set autoread " automatically load changed files when open
 set noswapfile " do not want swap files
+set belloff=all " stop annoying sounds"
 
 set listchars=tab:\|\ 
 set list
