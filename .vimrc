@@ -149,6 +149,10 @@ let g:indentLine_char = '¦'
 " map mw <Plug>(easymotion-w)
 " map mb <Plug>(easymotion-b) 
 " map mf <Plug>(easymotion-f)
+map / <Plug>(incsearch-easymotion-/)
+map ? <Plug>(incsearch-easymotion-?)
+map F <Plug>(easymotion-F) 
+map f <Plug>(easymotion-f)
 
 " -------------- commentary -------------------
 map <leader>c gcc
