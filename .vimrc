@@ -178,7 +178,12 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " -------------- miscallenous -------------------
 set backspace=indent,eol,start
 filetype plugin indent on 
-set tabstop=4 shiftwidth=4 expandtab softtabstop
+
+set tabstop=3 shiftwidth=3 expandtab softtabstop
+set nosmartindent
+set autoindent
+set cindent
+
 " editor
 set number " show relative numbers for all except for current:w
 set relativenumber
@@ -193,6 +198,4 @@ set list
 set wildmenu
 set so=10
 set encoding=utf-8
-set autoindent
-set cindent
-set cc=100
+set cc=80
