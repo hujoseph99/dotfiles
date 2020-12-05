@@ -128,6 +128,17 @@ map <leader>6 6gt
 map <leader>7 7gt
 map <leader>8 8gt
 map <leader>9 9gt
+map <leader>0 10gt
+map <leader><leader>1 11gt
+map <leader><leader>2 12gt
+map <leader><leader>3 13gt
+map <leader><leader>4 14gt
+map <leader><leader>5 15gt
+map <leader><leader>6 16gt
+map <leader><leader>7 17gt
+map <leader><leader>8 18gt
+map <leader><leader>9 19gt
+map <leader><leader>0 20gt
 
 map <leader><leader>j :sh<CR>
 map <leader>w <C-w>
@@ -151,7 +162,7 @@ let g:indentLine_char = '¦'
 " map mf <Plug>(easymotion-f)
 map / <Plug>(incsearch-easymotion-/)
 map ? <Plug>(incsearch-easymotion-?)
-map F <Plug>(easymotion-F) 
+map F <Plug>(easymotion-F)
 map f <Plug>(easymotion-f)
 
 " -------------- commentary -------------------
@@ -178,6 +189,40 @@ let g:indentLine_color_term = 242
 map <leader><leader>n :NERDTreeToggle<CR>
 " Closes nerd tree if only window open is the nerd tree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" -------------- tab line show numbers -------------------
+fu! MyTabLabel(n)
+let buflist = tabpagebuflist(a:n)
+let winnr = tabpagewinnr(a:n)
+let string = fnamemodify(bufname(buflist[winnr - 1]), ':t')
+return empty(string) ? '[unnamed]' : string
+endfu
+
+fu! MyTabLine()
+let s = ''
+for i in range(tabpagenr('$'))
+" select the highlighting
+   if i + 1 == tabpagenr()
+      let s .= '%#TabLineSel#'
+   else
+      let s .= '%#TabLine#'
+   endif
+
+   " set the tab page number (for mouse clicks)
+   "let s .= '%' . (i + 1) . 'T'
+   " display tabnumber (for use with <count>gt, etc)
+   let s .= ' '. (i+1) . ' '
+
+   " the label is made by MyTabLabel()
+   let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
+
+   if i+1 < tabpagenr('$')
+      let s .= ' |'
+   endif
+endfor
+return s
+endfu
+set tabline=%!MyTabLine()
 
 " -------------- miscallenous -------------------
 set backspace=indent,eol,start
