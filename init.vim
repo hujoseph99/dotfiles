@@ -116,7 +116,7 @@ map <leader>6 6gt
 map <leader>7 7gt
 map <leader>8 8gt
 map <leader>9 9gt
-map <leader><leader>j :sh<CR>
+map <leader><leader>j <C-z><CR>
 map <leader>w <C-w>
 
 " jump to definition in new tab
@@ -175,4 +175,4 @@ set so=10
 set encoding=utf-8
 set autoindent
 set cindent
-set cc=100
+set cc=80

@@ -144,7 +144,7 @@ map <leader><leader>j :sh<CR>
 map <leader>w <C-w>
 
 " jump to definition in new tab
-nmap <leader>d <Plug>(go-def-tab)
+" nmap <leader>d <Plug>(go-def-tab)
 
 " ---- ---------- indentguides -------------------
 let g:indentLine_char = '¦'
@@ -169,16 +169,16 @@ map f <Plug>(easymotion-f)
 map <leader>c gcc
 
 " -------------- YouCompleteMe -------------------
-nmap J <plug>(YCMHover)
-nnoremap <leader><leader>r :YcmForceCompileAndDiagnostics<CR>
+" nmap J <plug>(YCMHover)
+" nnoremap <leader><leader>r :YcmForceCompileAndDiagnostics<CR>
 
 " ------------- Completor -------------------
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 
-noremap <silent> <leader>d :call completor#do('definition')<CR>
-noremap <silent> <leader>s :call completor#do('hover')<CR>
+" noremap <silent> <leader>d :call completor#do('definition')<CR>
+" noremap <silent> <leader>s :call completor#do('hover')<CR>
 " -------------- vim indent lines -------------------
 let g:indentLine_setColors = 0
 let g:indentLine_char = '¦'
@@ -186,65 +186,65 @@ let g:indentLine_color_term = 242
 
 " -------------- nerdTree -------------------
 " Opens nerd tree with ctrl-n
-map <leader><leader>n :NERDTreeToggle<CR>
-" Closes nerd tree if only window open is the nerd tree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" map <leader><leader>n :NERDTreeToggle<CR>
+" " Closes nerd tree if only window open is the nerd tree
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " -------------- tab line show numbers -------------------
-fu! MyTabLabel(n)
-let buflist = tabpagebuflist(a:n)
-let winnr = tabpagewinnr(a:n)
-let string = fnamemodify(bufname(buflist[winnr - 1]), ':t')
-return empty(string) ? '[unnamed]' : string
-endfu
+"fu! MyTabLabel(n)
+"let buflist = tabpagebuflist(a:n)
+"let winnr = tabpagewinnr(a:n)
+"let string = fnamemodify(bufname(buflist[winnr - 1]), ':t')
+"return empty(string) ? '[unnamed]' : string
+"endfu
 
-fu! MyTabLine()
-let s = ''
-for i in range(tabpagenr('$'))
-" select the highlighting
-   if i + 1 == tabpagenr()
-      let s .= '%#TabLineSel#'
-   else
-      let s .= '%#TabLine#'
-   endif
+"fu! MyTabLine()
+"let s = ''
+"for i in range(tabpagenr('$'))
+"" select the highlighting
+"   if i + 1 == tabpagenr()
+"      let s .= '%#TabLineSel#'
+"   else
+"      let s .= '%#TabLine#'
+"   endif
 
-   " set the tab page number (for mouse clicks)
-   "let s .= '%' . (i + 1) . 'T'
-   " display tabnumber (for use with <count>gt, etc)
-   let s .= ' '. (i+1) . ' '
+"   " set the tab page number (for mouse clicks)
+"   "let s .= '%' . (i + 1) . 'T'
+"   " display tabnumber (for use with <count>gt, etc)
+"   let s .= ' '. (i+1) . ' '
 
-   " the label is made by MyTabLabel()
-   let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
+"   " the label is made by MyTabLabel()
+"   let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
 
-   if i+1 < tabpagenr('$')
-      let s .= ' |'
-   endif
-endfor
-return s
-endfu
-set tabline=%!MyTabLine()
+"   if i+1 < tabpagenr('$')
+"      let s .= ' |'
+   " endif
+" endfor
+" return s
+" endfu
+" set tabline=%!MyTabLine()
 
 " -------------- miscallenous -------------------
-set backspace=indent,eol,start
-filetype plugin indent on 
+" set backspace=indent,eol,start
+" filetype plugin indent on 
 
-set tabstop=3 shiftwidth=3 expandtab softtabstop
-set nosmartindent
-set autoindent
-set cindent
+" set tabstop=3 shiftwidth=3 expandtab softtabstop
+" set nosmartindent
+" set autoindent
+" set cindent
 
-" editor
-set number " show relative numbers for all except for current:w
-set relativenumber
-set ignorecase " ignore case unless there is a capitalized letter
-set smartcase
-set autoread " automatically load changed files when open
-set noswapfile " do not want swap files
-set belloff=all " stop annoying sounds"
+" " editor
+" set number " show relative numbers for all except for current:w
+" set relativenumber
+" set ignorecase " ignore case unless there is a capitalized letter
+" set smartcase
+" set autoread " automatically load changed files when open
+" set noswapfile " do not want swap files
+" set belloff=all " stop annoying sounds"
 
-set listchars=tab:\|\ 
-set list
-set wildmenu
-set so=10
-set encoding=utf-8
-set cc=80
+" set listchars=tab:\|\ 
+" set list
+" set wildmenu
+" set so=10
+" set encoding=utf-8
+" set cc=80
