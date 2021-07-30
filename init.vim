@@ -39,6 +39,9 @@ Plug 'sheerun/vim-polyglot'
 Plug 'haya14busa/incsearch.vim'
 
 " Obsession
+Plug 'tpope/vim-obsession'
+
+" completor
 Plug 'maralla/completor.vim'
 
 " gruvbox color scheme
@@ -66,6 +69,7 @@ syntax on
 if (has("termguicolors"))
     set termguicolors
 endif
+" set background=dark
 let g:gruvbox_contrast_dark='hard'
 colorscheme gruvbox
 
@@ -101,11 +105,16 @@ map <leader>6 6gt
 map <leader>7 7gt
 map <leader>8 8gt
 map <leader>9 9gt
-map <leader><leader>j <C-z><CR>
+map <leader><leader>j <C-Z><CR>
 map <leader>w <C-w>
 
 " jump to definition in new tab
 nmap <leader>d <Plug>(go-def-tab)
+
+" Quickly edit/reload this configuration file
+nnoremap <leader>ev :tabe $MYVIMRC<CR>
+nnoremap <leader>sv :so $MYVIMRC<CR>
+
 
 " ---- ---------- indentguides -------------------
 let g:indentLine_char = '¦'
@@ -127,7 +136,7 @@ let g:indentLine_color_term = 242
 " -------------- miscallenous -------------------
 set backspace=indent,eol,start
 filetype plugin indent on 
-set tabstop=3 shiftwidth=3 expandtab softtabstop
+set tabstop=4 shiftwidth=4 expandtab softtabstop
 
 " editor
 set number " show relative numbers for all except for current:w
