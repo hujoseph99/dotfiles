@@ -35,29 +35,14 @@ Plug 'tpope/vim-surround'
 " Polyglot - Adds syntax highax highlighting for almost every language
 Plug 'sheerun/vim-polyglot'
 
-" Easy motion
-Plug 'easymotion/vim-easymotion'
-
 " incsearch
 Plug 'haya14busa/incsearch.vim'
-
-" incsearch + easymotion
-Plug 'haya14busa/incsearch-easymotion.vim'
-
-" YCM
-Plug 'ycm-core/YouCompleteMe'
 
 " Obsession
 Plug 'maralla/completor.vim'
 
 " gruvbox color scheme
 Plug 'morhetz/gruvbox'
-
-" Dracula color scheme
-Plug 'dracula/vim', { 'name': 'dracula' }
-
-" Material
-Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 
 " All of your Plugins must be added before the following line
 call plug#end()
@@ -125,23 +110,8 @@ nmap <leader>d <Plug>(go-def-tab)
 " ---- ---------- indentguides -------------------
 let g:indentLine_char = '¦'
 
-"-------------- easyMotion + incsearch  -------------------
-" map <Leader><Leader> <Plug>(easymotion-prefix)
-map / <Plug>(incsearch-easymotion-/)
-map ? <Plug>(incsearch-easymotion-?)
-map F <Plug>(easymotion-F) 
-map f <Plug>(easymotion-f)
-" map /  <Plug>(incsearch-forward)
-" map ?  <Plug>(incsearch-backward)
-" map g/ <Plug>(incsearch-stay)
-" map mw <Plug>(easymotion-w)
-
 " -------------- commentary -------------------
 map <leader>c gcc
-
-" -------------- YouCompleteMe -------------------
-nmap J <plug>(YCMHover)
-nnoremap <leader><leader>r :YcmForceCompileAndDiagnostics<CR>
 
 " -------------- nerdTree -------------------
 " Opens nerd tree with ctrl-n
