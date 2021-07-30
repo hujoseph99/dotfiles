@@ -102,7 +102,7 @@ map <leader>6 6gt
 map <leader>7 7gt
 map <leader>8 8gt
 map <leader>9 9gt
-map <leader><leader>j :sh<CR>
+map <leader><leader>j <C-Z><CR>
 map <leader>w <C-w>
 
 " jump to definition in new tab
