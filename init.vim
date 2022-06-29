@@ -1,101 +1,71 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+let mapleader=" "
 
-" ------------------- PLUG STUFF ------------------- 
-call plug#begin()
+" movement
+noremap J 10j
+noremap K 10k
 
-" let Vundle manage Vundle, required
-Plug 'VundleVim/Vundle.vim'
+noremap <C-k> 5<C-y>
+noremap <C-j> 5<C-e>
 
-" VimIndentGuides
-Plug 'Yggdroot/indentLine'
+" Indentation
+nnoremap < <<
+nnoremap > >>
 
-" NerdTree
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Split Screen
+nmap <leader>sl :set splitright<CR>:vsplit<CR>
+nmap <leader>sh :set nosplitright<CR>:vsplit<CR>
+nmap <leader>sk :set nosplitbelow<CR>:split<CR>
+nmap <leader>sj :set splitbelow<CR>:split<CR>
 
-" Advanced C++ highlight
-Plug 'octol/vim-cpp-enhanced-highlight'
+" Navigate  splitted screes
+noremap <leader>hh <C-w>h
+noremap <leader>ll <C-w>l
+noremap <leader>kk <C-w>k
+noremap <leader>jj <C-w>j
 
-" Auto brackets
-Plug 'jiangmiao/auto-pairs'
+noremap <leader>H <C-w>H
+noremap <leader>L <C-w>L
+noremap <leader>K <C-w>K
+noremap <leader>J <C-w>J
+
+" Adjust splitted screen size
+map <up> :res  +5<CR>
+map <down> :res -5<CR>
+map <right> :vertical resize+5<CR>
+map <left> :vertical resize-5<CR>
+
+" GitGutter navigate hunks
+nmap <leader>h] <Plug>(GitGutterNextHunk)
+nmap <leader>h[ <Plug>(GitGutterPrevHunk)
+nmap <leader>ht :GitGutterToggle<CR>
+
+" Copy till the end of the line
+nnoremap Y y$
+
+" Copy to system clipboard
+vnoremap Y "+y
 
 " Commentary
-Plug 'tpope/vim-commentary'
+nmap <leader>cc <Plug>CommentaryLine
+vmap <leader>cc <Plug>CommentaryLine
 
-" Go
-Plug 'fatih/vim-go'
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
-" Airline
-Plug 'vim-airline/vim-airline'
+nnoremap <silent> <leader>gk :call ShowDocumentation()<CR>
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
 
-" Surround
-Plug 'tpope/vim-surround'
 
-" Polyglot - Adds syntax highax highlighting for almost every language
-Plug 'sheerun/vim-polyglot'
-
-" incsearch
-Plug 'haya14busa/incsearch.vim'
-
-" Obsession
-Plug 'tpope/vim-obsession'
-
-" completor
-Plug 'maralla/completor.vim'
-
-" gruvbox color scheme
-Plug 'morhetz/gruvbox'
-
-" All of your Plugins must be added before the following line
-call plug#end()
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
-" -------------- color scheme settings --------------------
-syntax enable
-syntax on
-" for vim 8
-if (has("termguicolors"))
-    set termguicolors
-endif
-" set background=dark
-let g:gruvbox_contrast_dark='hard'
-colorscheme gruvbox
-
-let g:go_highlight_structs = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_types = 1
-
-" -------------- airline settings --------------------
-let g:airline_theme = 'gruvbox'
-
-" -------------- map hotkeys --------------------
-nnoremap <SPACE> <Nop>
-let mapleader=" "
-map mm <C-w>
-
-" screen movement
-map gm <C-b> 
-map gn <C-f> 
-map gu <C-e> 
-map gi <C-y> 
-map gj <C-d> 
-map gk <C-u> 
-
+" -------------- tabs --------------------
 map <leader>1 1gt
 map <leader>2 2gt
 map <leader>3 3gt
@@ -105,38 +75,69 @@ map <leader>6 6gt
 map <leader>7 7gt
 map <leader>8 8gt
 map <leader>9 9gt
-map <leader><leader>j <C-Z><CR>
-map <leader>w <C-w>
 
-" jump to definition in new tab
-nmap <leader>d <Plug>(go-def-tab)
+noremap H gT
+noremap L gt
 
-" Quickly edit/reload this configuration file
-nnoremap <leader>ev :tabe $MYVIMRC<CR>
-nnoremap <leader>sv :so $MYVIMRC<CR>
+" Navigate through tabs
+noremap tu :tab split<CR>
+noremap tU :tabe<CR>
+map th :-tabnext<CR>
+map tl :+tabnext<CR>
 
+map W :w<CR>
+map Q :q<CR>
+map ZZ :wa<CR>:qa!<CR>
 
-" ---- ---------- indentguides -------------------
-let g:indentLine_char = '¦'
+" Clear search highlight result until next search
+nnoremap <LEADER>c :noh<CR>
 
-" -------------- commentary -------------------
-map <leader>c gcc
+" Insert a new line without entering insert mode
+nnoremap <LEADER>o o<ESC>
+nnoremap <LEADER>O O<ESC>
 
-" -------------- nerdTree -------------------
-" Opens nerd tree with ctrl-n
-map <leader><leader>n :NERDTreeToggle<CR>
-" Closes nerd tree if only window open is the nerd tree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" Use <cr> to confirm completion
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" -------------- vim indent lines -------------------
-let g:indentLine_setColors = 0
-let g:indentLine_char = '¦'
-let g:indentLine_color_term = 242
+" use <c-space>for trigger completion
+inoremap <silent><expr> <NUL> coc#refresh()
 
-" -------------- miscallenous -------------------
-set backspace=indent,eol,start
+" use <tab> and <s-tab> to navigate the completion list
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" format selection with prettier
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+" Fugitive
+nmap <leader>gb :Git blame<CR>
+
+" LeaderF
+let g:Lf_HideHelp = 1
+let g:Lf_UseCache = 0
+let g:Lf_UseVersionControlTool = 0
+let g:Lf_IgnoreCurrentBufferName = 1
+
+let g:Lf_WindowPosition = 'popup'
+let g:Lf_PreviewInPopup = 1
+let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
+let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
+
+let g:Lf_ShortcutF = "<leader>ff"
+noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
+noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
+noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
+noremap <leader>rg :Leaderf rg<CR>
+
+" -------------- options -------------------
+set nocompatible
+filetype on
+filetype indent on
+filetype plugin on
 filetype plugin indent on 
-set tabstop=4 shiftwidth=4 expandtab softtabstop
+set tabstop=2 shiftwidth=2 expandtab softtabstop
 
 " editor
 set number " show relative numbers for all except for current:w
@@ -154,4 +155,184 @@ set so=10
 set encoding=utf-8
 set autoindent
 set cindent
-set cc=80
+
+" ------------------- plugins stuff ------------------- 
+call plug#begin()
+
+" Shows undo tree for text edits to a file
+Plug 'mbbill/undotree'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-obsession'
+Plug 'Yggdroot/indentLine'
+Plug 'airblade/vim-gitgutter'
+
+" Comments
+Plug 'tpope/vim-commentary'
+
+" icons
+Plug 'ryanoasis/vim-devicons'
+
+" Easu toggle for terminal in vim
+Plug 'akinsho/toggleterm.nvim'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'sickill/vim-monokai'
+Plug 'joshdick/onedark.vim'
+
+" start screen for vim
+Plug 'mhinz/vim-startify'
+
+" airline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+
+" Fuzzy finder for locating files, buffers, etc.
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'pangloss/vim-javascript'    " JavaScript support
+Plug 'leafgarland/typescript-vim' " Typescript support
+Plug 'peitalin/vim-jsx-typescript' " JS and JSX syntax
+
+" For generating and displaying ctags in vim
+Plug 'preservim/tagbar'
+Plug 'universal-ctags/ctags'
+
+" All of your Plugins must be added before the following line
+call plug#end()
+
+" CoC settings 
+let g:coc_global_extensions = [
+  \ 'coc-clangd',
+	\ 'coc-css',
+	\ 'coc-diagnostic',
+	\ 'coc-explorer',
+	\ 'coc-gitignore',
+  \ 'coc-lists',
+	\ 'coc-git',
+	\ 'coc-html',
+  \ 'coc-import-cost',
+	\ 'coc-jest',
+	\ 'coc-json',
+	\ 'coc-lists',
+	\ 'coc-prettier',
+	\ 'coc-stylelint',
+	\ 'coc-eslint',
+	\ 'coc-tsserver',
+  \ 'coc-tslint-plugin',
+	\ 'coc-vetur',
+	\ 'coc-vimlsp']
+
+" Tree-sitter lua setup
+lua <<EOF
+require("nvim-treesitter.configs").setup{
+  ensure_installed = { "go", "html", "javascript", "json", "regex", "typescript", "vue" },
+  indent = {
+    enable = true
+  },
+  highlight = {
+    enable = true,
+  },
+}
+EOF
+
+" Toggleterm
+lua <<EOF
+require("toggleterm").setup{
+  size = 20,
+  open_mapping = [[<c-\>]],
+  direction = 'float',
+}
+
+function _G.set_terminal_keymaps()
+  local opts = {noremap = true}
+  vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\>]], opts)
+end
+EOF
+
+" CoC explorer options
+let g:coc_explorer_global_presets = {
+\   '.nvim': {
+\     'root-uri': '~/.config/nvim',
+\   },
+\   'cocConfig': {
+\      'root-uri': '~/.config/coc',
+\   },
+\   'tab': {
+\     'position': 'tab',
+\     'quit-on-open': v:true,
+\   },
+\   'tab:$': {
+\     'position': 'tab:$',
+\     'quit-on-open': v:true,
+\   },
+\   'floating': {
+\     'position': 'floating',
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingTop': {
+\     'position': 'floating',
+\     'floating-position': 'center-top',
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingLeftside': {
+\     'position': 'floating',
+\     'floating-position': 'left-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingRightside': {
+\     'position': 'floating',
+\     'floating-position': 'right-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'simplify': {
+\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+\   },
+\   'buffer': {
+\     'sources': [{'name': 'buffer', 'expand': v:true}]
+\   },
+\ }
+
+nmap <space>ee <Cmd>CocCommand explorer<CR>
+nmap <space>ef <Cmd>CocCommand explorer --preset floating<CR>
+nmap <space>ed <Cmd>CocCommand explorer --preset .nvim<CR>
+
+" Use preset argument to open it
+"nmap <space>ec <Cmd>CocCommand explorer --preset cocConfig<CR>
+"nmap <space>eb <Cmd>CocCommand explorer --preset buffer<CR>
+
+" List all presets
+"nmap <space>el <Cmd>CocList explPresets<CR>
+
+command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
+
+" startify
+let g:startify_bookmarks = [ {'c': '~/.config/nvim/init.vim'}, { 'z': '~/.zshrc' } ]
+
+" indentLine
+let g:indentLine_char = '│'
+
+autocmd Filetype json
+  \ let g:indentLine_setConceal = 0 |
+  \ let g:vim_json_syntax_conceal = 0
+
+
+" -------------- color scheme settings --------------------
+syntax enable
+syntax on
+" for vim 8
+if (has("termguicolors"))
+    set termguicolors
+endif
+colorscheme monokai
+
+" -------------- airline settings --------------------
+let g:airline_theme='onedark'
+
