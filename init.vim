@@ -41,6 +41,7 @@ nmap <leader>ht :GitGutterToggle<CR>
 
 " Copy till the end of the line
 nnoremap Y y$
+nnoremap <leader>Y gg"+yG
 
 " Copy to system clipboard
 vnoremap Y "+y
@@ -131,6 +132,9 @@ noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
 noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
 noremap <leader>rg :Leaderf rg<CR>
 
+" Folding
+nmap B za
+
 " -------------- options -------------------
 set nocompatible
 filetype on
@@ -156,6 +160,9 @@ set encoding=utf-8
 set autoindent
 set cindent
 
+set foldmethod=indent
+set foldlevelstart=99
+
 " ------------------- plugins stuff ------------------- 
 call plug#begin()
 
@@ -165,6 +172,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
 Plug 'Yggdroot/indentLine'
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'airblade/vim-gitgutter'
 
 " Comments
@@ -226,7 +234,8 @@ let g:coc_global_extensions = [
 	\ 'coc-tsserver',
   \ 'coc-tslint-plugin',
 	\ 'coc-vetur',
-	\ 'coc-vimlsp']
+	\ 'coc-vimlsp',
+  \ 'coc-pyright']
 
 " Tree-sitter lua setup
 lua <<EOF
@@ -253,6 +262,14 @@ function _G.set_terminal_keymaps()
   local opts = {noremap = true}
   vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\>]], opts)
 end
+EOF
+
+" indent-blankline lua setup
+lua <<EOF
+require("indent_blankline").setup {
+  -- for example, context is off by default, use this to turn it on
+  show_current_context = true,
+}
 EOF
 
 " CoC explorer options
@@ -323,7 +340,6 @@ autocmd Filetype json
   \ let g:indentLine_setConceal = 0 |
   \ let g:vim_json_syntax_conceal = 0
 
-
 " -------------- color scheme settings --------------------
 syntax enable
 syntax on
@@ -332,6 +348,9 @@ if (has("termguicolors"))
     set termguicolors
 endif
 colorscheme monokai
+
+" set filetypes as typescriptreact
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
 " -------------- airline settings --------------------
 let g:airline_theme='onedark'

@@ -1,25 +1,51 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 export GOPATH=$HOME/go
+export CLASSPATH=".:/usr/local/lib/antlr-4.10.1-complete.jar:$CLASSPATH"
+export PATH="/usr/local/opt/openjdk@8/bin:$PATH"
+export PERCY_TOKEN=caba8975b49dc738e132acc576927b27b102b340f1037c020c8f11cab9b3d982
+
+alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.10.1-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
+alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.10.1-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig'
+
+alias code="cd ~/code"
+alias dotfiles="cd ~/code/dotfiles"
+alias universe="cd ~/code/universe"
+alias h2ru="cd ~/code/universe/js/packages/editor; source /Users/joseph.hu/code/universe/js/env.sh init"
+alias viz="cd ~/code/universe/js/packages/visualization"
+alias h2ru1="yarn build"
+alias h2ru2="yarn dev-webpack-npm"
+alias h2ru3="yarn dev-webpack-workers"
+alias h2ru4="yarn storybook"
+alias h2r="cd /Users/joseph.hu/code/hue2redash"
+alias webapp="cd ~/code/universe/redash/managed_redash/packages/app"
+alias cleanSessions="rm Session.vim.*";
+alias mpoce="cd ~/code/vscode-extension-samples/lsp-embedded-language-service"
+alias mpocs="cd ~/code/vscode-extension-samples/lsp-sample"
+
+function fetchBranch { 
+  git fetch git@github.com:${1}/universe.git ${2}:${2} 
+}
 
 # ================   Aliases   ==================
-alias linux="ssh j268hu@linux.student.cs.uwaterloo.ca"
-alias school="cd /Users/josephhu/Documents/Joseph/university/1201\ -\ 2020\ Winter" 
-alias crack="cd /Users/josephhu/Documents/Joseph/coding/learning/ctci-solutions"
-alias leetcode="cd /Users/josephhu/Documents/Joseph/coding/leetcode"
-alias joseph="cd /Users/josephhu/Documents/Joseph/"
-alias g++14="g++ -std=c++14"
-alias crackg++="g++ -std=c++14 -o exec"
-alias typing="cd /Users/josephhu/Documents/Joseph/coding/projects/typing"
-alias typingbackend="cd /Users/josephhu/go/src/github.com/hujoseph99/typing_backend"
-alias learngo="cd /Users/josephhu/Documents/Joseph/coding/learning/go-essential-training"
-alias qmk="cd ~/Documents/QMK"
-alias zshrc="nvim ~/.zshrc"
-alias nvimrc="nvim ~/.config/nvim/init.vim"
-alias dotfiles="cd /Users/josephhu/Documents/Joseph/coding/dotfiles"
+alias zrc="nvim ~/.zshrc"
+alias szrc="source ~/.zshrc"
+alias nrc="nvim ~/.config/nvim/init.vim"
+
+DISABLE_MAGIC_FUNCTIONS=true
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -70,30 +96,9 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 ### VISUAL CUSTOMISATION ### 
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# Elements options of left prompt (remove the @username context)
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs)
-# Elements options of right prompt
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(history command_execution_time time)
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Add a second prompt line for the command
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-# Add a space in the first prompt 
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%f"
-
-#directory shorten length
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
-POWERLEVEL9K_SHORTEN_STRATEGY=Default
-
-# Visual customisation of the second prompt line
-local user_symbol="$"
-if [[ $(print -P "%#") =~ "#" ]]; then
-    user_symbol = "#"
-fi
-
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%{%B%F{black}%K{yellow}%} $user_symbol%{%b%f%k%F{yellow}%} %{%f%}"
-
-# Change the git status to red when something isn't committed and pushed
-POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='red'
-
-# Add a new line after the global prompt 
-POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
