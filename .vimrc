@@ -94,15 +94,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Folding
 nmap B za
 
-" -------------- options -------------------
-set nocompatible
-filetype on
-filetype indent on
-filetype plugin on
-filetype plugin indent on 
-set tabstop=2 shiftwidth=2 expandtab softtabstop
-
-" editor
+" -------------- editor -------------------
 set number " show relative numbers for all except for current:w
 set relativenumber
 set ignorecase " ignore case unless there is a capitalized letter
@@ -121,4 +113,53 @@ set cindent
 
 set foldmethod=indent
 set foldlevelstart=99
+
+" ------------------- plugins stuff ------------------- 
+call plug#begin()
+
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-obsession'
+Plug 'Yggdroot/indentLine'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'airblade/vim-gitgutter'
+
+" Comments
+Plug 'tpope/vim-commentary'
+
+" icons
+Plug 'ryanoasis/vim-devicons'
+
+Plug 'sickill/vim-monokai'
+Plug 'joshdick/onedark.vim'
+
+" start screen for vim
+Plug 'mhinz/vim-startify'
+
+" airline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" All of your Plugins must be added before the following line
+call plug#end()
+
+" -------------- color scheme settings --------------------
+syntax enable
+syntax on
+" for vim 8
+if (has("termguicolors"))
+    set termguicolors
+endif
+colorscheme monokai
+
+" -------------- options -------------------
+set nocompatible
+filetype on
+filetype indent on
+filetype plugin on
+filetype plugin indent on 
+set tabstop=2 shiftwidth=2 expandtab softtabstop
+
+" -------------- airline settings --------------------
+let g:airline_theme='onedark'
 

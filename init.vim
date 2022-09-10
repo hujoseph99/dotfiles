@@ -143,7 +143,7 @@ filetype plugin on
 filetype plugin indent on 
 set tabstop=2 shiftwidth=2 expandtab softtabstop
 
-" editor
+" -------------- editor -------------------
 set number " show relative numbers for all except for current:w
 set relativenumber
 set ignorecase " ignore case unless there is a capitalized letter
