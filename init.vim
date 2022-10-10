@@ -1,4 +1,5 @@
 let mapleader=" "
+let maplocalleader=" "
 
 " movement
 noremap J 10j
@@ -41,7 +42,6 @@ nmap <leader>ht :GitGutterToggle<CR>
 
 " Copy till the end of the line
 nnoremap Y y$
-nnoremap <leader>Y gg"+yG
 
 " Copy to system clipboard
 vnoremap Y "+y
@@ -50,21 +50,10 @@ vnoremap Y "+y
 nmap <leader>cc <Plug>CommentaryLine
 vmap <leader>cc <Plug>CommentaryLine
 
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <leader>Y gg0vG$Y
 
-nnoremap <silent> <leader>gk :call ShowDocumentation()<CR>
-function! ShowDocumentation()
-  if CocAction('hasProvider', 'hover')
-    call CocActionAsync('doHover')
-  else
-    call feedkeys('K', 'in')
-  endif
-endfunction
-
+" folding
+nnoremap zv za
 
 " -------------- tabs --------------------
 map <leader>1 1gt
@@ -97,19 +86,85 @@ nnoremap <LEADER>c :noh<CR>
 nnoremap <LEADER>o o<ESC>
 nnoremap <LEADER>O O<ESC>
 
-" Use <cr> to confirm completion
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" use <c-space>for trigger completion
-inoremap <silent><expr> <NUL> coc#refresh()
-
+" ------------------- COC STUFF ----------------------
 " use <tab> and <s-tab> to navigate the completion list
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-" format selection with prettier
-vmap <leader>f  <Plug>(coc-format-selected)
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> gk :call ShowDocumentation()<CR>
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+set updatetime=1000
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>qq  <Plug>(coc-codeaction-selected)
+nmap <leader>qq  <Plug>(coc-codeaction-selected)
+
+nmap <leader>a  <leader>qqaw
+xmap <leader>a  <leader>qqaw
+
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Remap <C-j> and <C-k> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-j>"
+  nnoremap <silent><nowait><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-k>"
+  inoremap <silent><nowait><expr> <C-j> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-k> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-j>"
+  vnoremap <silent><nowait><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-k>"
+endif
+
+" ------------------- END COC STUFF ----------------------
 
 " Fugitive
 nmap <leader>gb :Git blame<CR>
@@ -132,8 +187,26 @@ noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
 noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
 noremap <leader>rg :Leaderf rg<CR>
 
-" Folding
-nmap B za
+
+
+" -------------- vimtex -------------------
+noremap tsf <plug>(vimtex-cmd-toggle-frac)
+noremap tsc <plug>(vimtex-cmd-toggle-star)
+noremap tse <plug>(vimtex-env-toggle-star)
+noremap ts <plug>(vimtex-env-toggle-math)
+noremap tst <plug>(vimtex-env-surround-line)
+vnoremap tst <plug>(vimtex-env-surround-visual)
+noremap tsd <plug>(vimtex-delim-toggle-modifier)
+noremap tsD <plug>(vimtex-delim-toggle-modifier-reverse)
+
+augroup vimtex_config
+  autocmd User VimtexEventInitPost VimtexCompile
+augroup END
+
+" -------------- options -------------------
+let g:tex_flavor = 'latex'
+let g:vimtex_syntax_conceal_disable=1
+noremap <leader>lk <plug>(vimtex-compile)
 
 " -------------- options -------------------
 set nocompatible
@@ -143,7 +216,7 @@ filetype plugin on
 filetype plugin indent on 
 set tabstop=2 shiftwidth=2 expandtab softtabstop
 
-" -------------- editor -------------------
+" editor
 set number " show relative numbers for all except for current:w
 set relativenumber
 set ignorecase " ignore case unless there is a capitalized letter
@@ -151,6 +224,7 @@ set smartcase
 set autoread " automatically load changed files when open
 set noswapfile " do not want swap files
 set belloff=all " stop annoying sounds"
+set colorcolumn=100
 
 set listchars=tab:\|\ 
 set list
@@ -161,7 +235,9 @@ set autoindent
 set cindent
 
 set foldmethod=indent
+set nofoldenable
 set foldlevelstart=99
+set foldlevel=99
 
 " ------------------- plugins stuff ------------------- 
 call plug#begin()
@@ -172,7 +248,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
 Plug 'Yggdroot/indentLine'
-Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'airblade/vim-gitgutter'
 
 " Comments
@@ -188,6 +263,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'sickill/vim-monokai'
 Plug 'joshdick/onedark.vim'
+Plug 'sainnhe/everforest'
+Plug 'sainnhe/gruvbox-material'
 
 " start screen for vim
 Plug 'mhinz/vim-startify'
@@ -196,13 +273,15 @@ Plug 'mhinz/vim-startify'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+" Latex
+Plug 'lervag/vimtex'
 
 " Fuzzy finder for locating files, buffers, etc.
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
-Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'pangloss/vim-javascript'    " JavaScript support
 Plug 'leafgarland/typescript-vim' " Typescript support
 Plug 'peitalin/vim-jsx-typescript' " JS and JSX syntax
@@ -231,16 +310,16 @@ let g:coc_global_extensions = [
 	\ 'coc-prettier',
 	\ 'coc-stylelint',
 	\ 'coc-eslint',
-	\ 'coc-tsserver',
-  \ 'coc-tslint-plugin',
-	\ 'coc-vetur',
-	\ 'coc-vimlsp',
-  \ 'coc-pyright']
+  \ 'coc-java',
+	\ 'coc-vimlsp']
 
 " Tree-sitter lua setup
 lua <<EOF
 require("nvim-treesitter.configs").setup{
-  ensure_installed = { "go", "html", "javascript", "json", "regex", "typescript", "vue" },
+  ignore_install = { "latex" },
+  ensure_installed = { "go", "html", "javascript", "json", "regex", "typescript", "vue", "java", 
+    "scala"
+  },
   indent = {
     enable = true
   },
@@ -262,14 +341,6 @@ function _G.set_terminal_keymaps()
   local opts = {noremap = true}
   vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\>]], opts)
 end
-EOF
-
-" indent-blankline lua setup
-lua <<EOF
-require("indent_blankline").setup {
-  -- for example, context is off by default, use this to turn it on
-  show_current_context = true,
-}
 EOF
 
 " CoC explorer options
@@ -340,6 +411,7 @@ autocmd Filetype json
   \ let g:indentLine_setConceal = 0 |
   \ let g:vim_json_syntax_conceal = 0
 
+
 " -------------- color scheme settings --------------------
 syntax enable
 syntax on
@@ -347,11 +419,13 @@ syntax on
 if (has("termguicolors"))
     set termguicolors
 endif
-colorscheme monokai
 
-" set filetypes as typescriptreact
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+" set background=light
+let g:gruvbox_material_background = 'hard'
+let g:gruvbox_material_foreground = 'material'
+let g:gruvbox_material_better_performance = 1
+colorscheme gruvbox-material
 
 " -------------- airline settings --------------------
-let g:airline_theme='onedark'
+let g:airline_theme = 'gruvbox_material'
 
