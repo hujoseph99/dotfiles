@@ -286,10 +286,6 @@ Plug 'pangloss/vim-javascript'    " JavaScript support
 Plug 'leafgarland/typescript-vim' " Typescript support
 Plug 'peitalin/vim-jsx-typescript' " JS and JSX syntax
 
-" For generating and displaying ctags in vim
-Plug 'preservim/tagbar'
-Plug 'universal-ctags/ctags'
-
 " All of your Plugins must be added before the following line
 call plug#end()
 
