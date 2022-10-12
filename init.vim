@@ -86,86 +86,6 @@ nnoremap <LEADER>c :noh<CR>
 nnoremap <LEADER>o o<ESC>
 nnoremap <LEADER>O O<ESC>
 
-" ------------------- COC STUFF ----------------------
-" use <tab> and <s-tab> to navigate the completion list
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-
-" Make <CR> to accept selected completion item or notify coc.nvim to format
-" <C-g>u breaks current undo, please make your own choice.
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> gk :call ShowDocumentation()<CR>
-function! ShowDocumentation()
-  if CocAction('hasProvider', 'hover')
-    call CocActionAsync('doHover')
-  else
-    call feedkeys('K', 'in')
-  endif
-endfunction
-
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-set updatetime=1000
-
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>qq  <Plug>(coc-codeaction-selected)
-nmap <leader>qq  <Plug>(coc-codeaction-selected)
-
-nmap <leader>a  <leader>qqaw
-xmap <leader>a  <leader>qqaw
-
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Remap <C-j> and <C-k> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-j>"
-  nnoremap <silent><nowait><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-k>"
-  inoremap <silent><nowait><expr> <C-j> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-k> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-j>"
-  vnoremap <silent><nowait><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-k>"
-endif
-
-" ------------------- END COC STUFF ----------------------
-
 " Fugitive
 nmap <leader>gb :Git blame<CR>
 
@@ -186,8 +106,6 @@ noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
 noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
 noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
 noremap <leader>rg :Leaderf rg<CR>
-
-
 
 " -------------- vimtex -------------------
 noremap tsf <plug>(vimtex-cmd-toggle-frac)
@@ -239,6 +157,10 @@ set nofoldenable
 set foldlevelstart=99
 set foldlevel=99
 
+" indentLine
+let g:indentLine_char = '│'
+
+
 " ------------------- plugins stuff ------------------- 
 call plug#begin()
 
@@ -256,18 +178,10 @@ Plug 'tpope/vim-commentary'
 " icons
 Plug 'ryanoasis/vim-devicons'
 
-" Easu toggle for terminal in vim
-Plug 'akinsho/toggleterm.nvim'
-
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 Plug 'sickill/vim-monokai'
 Plug 'joshdick/onedark.vim'
 Plug 'sainnhe/everforest'
 Plug 'sainnhe/gruvbox-material'
-
-" start screen for vim
-Plug 'mhinz/vim-startify'
 
 " airline
 Plug 'vim-airline/vim-airline'
@@ -286,28 +200,12 @@ Plug 'pangloss/vim-javascript'    " JavaScript support
 Plug 'leafgarland/typescript-vim' " Typescript support
 Plug 'peitalin/vim-jsx-typescript' " JS and JSX syntax
 
+" lsp
+Plug 'neovim/nvim-lspconfig'
+
+
 " All of your Plugins must be added before the following line
 call plug#end()
-
-" CoC settings 
-let g:coc_global_extensions = [
-  \ 'coc-clangd',
-	\ 'coc-css',
-	\ 'coc-diagnostic',
-	\ 'coc-explorer',
-	\ 'coc-gitignore',
-  \ 'coc-lists',
-	\ 'coc-git',
-	\ 'coc-html',
-  \ 'coc-import-cost',
-	\ 'coc-jest',
-	\ 'coc-json',
-	\ 'coc-lists',
-	\ 'coc-prettier',
-	\ 'coc-stylelint',
-	\ 'coc-eslint',
-  \ 'coc-java',
-	\ 'coc-vimlsp']
 
 " Tree-sitter lua setup
 lua <<EOF
@@ -325,88 +223,51 @@ require("nvim-treesitter.configs").setup{
 }
 EOF
 
-" Toggleterm
+" -------------- LSP stuff --------------------
 lua <<EOF
-require("toggleterm").setup{
-  size = 20,
-  open_mapping = [[<c-\>]],
-  direction = 'float',
+-- Mappings.
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+local opts = { noremap=true, silent=true }
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'gk', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', 'gR', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+end
+
+local lsp_flags = {
+  debounce_text_changes = 150,
 }
 
-function _G.set_terminal_keymaps()
-  local opts = {noremap = true}
-  vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\>]], opts)
-end
+require('lspconfig')['pyright'].setup{
+    on_attach = on_attach,
+    flags = lsp_flags,
+}
 EOF
-
-" CoC explorer options
-let g:coc_explorer_global_presets = {
-\   '.nvim': {
-\     'root-uri': '~/.config/nvim',
-\   },
-\   'cocConfig': {
-\      'root-uri': '~/.config/coc',
-\   },
-\   'tab': {
-\     'position': 'tab',
-\     'quit-on-open': v:true,
-\   },
-\   'tab:$': {
-\     'position': 'tab:$',
-\     'quit-on-open': v:true,
-\   },
-\   'floating': {
-\     'position': 'floating',
-\     'open-action-strategy': 'sourceWindow',
-\   },
-\   'floatingTop': {
-\     'position': 'floating',
-\     'floating-position': 'center-top',
-\     'open-action-strategy': 'sourceWindow',
-\   },
-\   'floatingLeftside': {
-\     'position': 'floating',
-\     'floating-position': 'left-center',
-\     'floating-width': 50,
-\     'open-action-strategy': 'sourceWindow',
-\   },
-\   'floatingRightside': {
-\     'position': 'floating',
-\     'floating-position': 'right-center',
-\     'floating-width': 50,
-\     'open-action-strategy': 'sourceWindow',
-\   },
-\   'simplify': {
-\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
-\   },
-\   'buffer': {
-\     'sources': [{'name': 'buffer', 'expand': v:true}]
-\   },
-\ }
-
-nmap <space>ee <Cmd>CocCommand explorer<CR>
-nmap <space>ef <Cmd>CocCommand explorer --preset floating<CR>
-nmap <space>ed <Cmd>CocCommand explorer --preset .nvim<CR>
-
-" Use preset argument to open it
-"nmap <space>ec <Cmd>CocCommand explorer --preset cocConfig<CR>
-"nmap <space>eb <Cmd>CocCommand explorer --preset buffer<CR>
-
-" List all presets
-"nmap <space>el <Cmd>CocList explPresets<CR>
-
-command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
-
-" startify
-let g:startify_bookmarks = [ {'c': '~/.config/nvim/init.vim'}, { 'z': '~/.zshrc' } ]
-
-" indentLine
-let g:indentLine_char = '│'
-
-autocmd Filetype json
-  \ let g:indentLine_setConceal = 0 |
-  \ let g:vim_json_syntax_conceal = 0
-
 
 " -------------- color scheme settings --------------------
 syntax enable
