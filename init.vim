@@ -158,6 +158,8 @@ set foldlevelstart=99
 set foldlevel=99
 
 set mouse=
+set completeopt=menu,menuone,noselect
+
 
 " indentLine
 let g:indentLine_char = '│'
@@ -203,6 +205,9 @@ Plug 'leafgarland/typescript-vim' " Typescript support
 Plug 'peitalin/vim-jsx-typescript' " JS and JSX syntax
 
 " lsp
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -230,9 +235,21 @@ require("nvim-treesitter.configs").setup{
 EOF
 
 " -------------- LSP stuff --------------------
-set completeopt=menu,menuone,noselect
-
 lua <<EOF
+require("mason").setup({
+  ui = {
+    icons = {
+      package_installed = "✓",
+      package_pending = "➜",
+      package_uninstalled = "✗"
+    }
+  }
+})
+
+require("mason-lspconfig").setup({
+  ensure_installed = { "pyright", "tsserver", "gopls" }
+})
+
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
@@ -254,16 +271,16 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'gk', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
   vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
   vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
   vim.keymap.set('n', '<space>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, bufopts)
-  vim.keymap.set('n', 'gR', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
@@ -342,7 +359,7 @@ require('lspconfig')['pyright'].setup{
   flags = lsp_flags,
   capabilities = capabilities
 }
-require('lspconfig')['pyright'].setup {
+require('lspconfig')['tsserver'].setup {
   on_attach = on_attach,
   flags = lsp_flags,
   capabilities = capabilities
