@@ -256,7 +256,7 @@ require("mason").setup({
 })
 
 require("mason-lspconfig").setup({
-  ensure_installed = { "pyright", "tsserver", "gopls" }
+  ensure_installed = { "pyright", "tsserver", "gopls", "jdtls" }
 })
 
 -- Mappings.
@@ -354,6 +354,11 @@ require('lspconfig')['tsserver'].setup {
   flags = lsp_flags,
   capabilities = capabilities
 }
+require('lspconfig')['jdtls'].setup {
+  on_attach = on_attach,
+  flags = lsp_flags,
+  capabilities = capabilities
+}
 
 local metals_config = require("metals").bare_config()
 
@@ -404,15 +409,18 @@ lua <<EOF
 vim.g.loaded = 1
 vim.g.loaded_netrwPlugin = 1
 
+local list = {
+  { key = "l", action = "edit" },
+  { key = "h", action = "close_node" },
+  { key = "<BS>", action = "dir_up" },
+  { key = "<CR>", action = "cd" },
+}
+
+
 require("nvim-tree").setup({
   view = {
     mappings = {
-      list = {
-        { key = "l", action = "edit" },
-        { key = "h", action = "close_node" },
-        { key = "<BS>", action = "dir_up" },
-        { key = "<CR>", action = "cd" },
-      },
+      list = list
     },
   },
 })
