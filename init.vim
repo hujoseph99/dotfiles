@@ -4,6 +4,8 @@ let maplocalleader=" "
 " movement
 noremap J 10j
 noremap K 10k
+noremap H ^
+noremap L $
 
 noremap <C-k> 5<C-y>
 noremap <C-j> 5<C-e>
@@ -121,7 +123,6 @@ augroup vimtex_config
   autocmd User VimtexEventInitPost VimtexCompile
 augroup END
 
-" -------------- options -------------------
 let g:tex_flavor = 'latex'
 let g:vimtex_syntax_conceal_disable=1
 noremap <leader>lk <plug>(vimtex-compile)
@@ -198,13 +199,17 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
+" Tree
+Plug 'nvim-tree/nvim-web-devicons' " optional, for file icons
+Plug 'nvim-tree/nvim-tree.lua'
+
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'pangloss/vim-javascript'    " JavaScript support
 Plug 'leafgarland/typescript-vim' " Typescript support
 Plug 'peitalin/vim-jsx-typescript' " JS and JSX syntax
 
-" scala lsp
 " lsp
+Plug 'nvim-lua/plenary.nvim'
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 
@@ -214,11 +219,10 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 
-Plug 'nvim-lua/plenary.nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 
+" scala lsp
 Plug 'scalameta/nvim-metals'
-Plug 'mfussenegger/nvim-dap'
 
 " All of your Plugins must be added before the following line
 call plug#end()
@@ -227,8 +231,8 @@ call plug#end()
 lua <<EOF
 require("nvim-treesitter.configs").setup{
   ignore_install = { "latex" },
-  ensure_installed = { "go", "html", "javascript", "json", "regex", "typescript", "vue", "java", 
-    "scala"
+  ensure_installed = { "go", "html", "javascript", "json", "regex", "typescript", "vue", 
+    "java", "scala"
   },
   indent = {
     enable = true
@@ -373,7 +377,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 EOF
 
-" -------------- color scheme settings --------------------
+" -------------- null-ls options --------------------
 lua <<EOF
 require("null-ls").setup({
   sources = {
@@ -395,35 +399,27 @@ require("null-ls").setup({
 })
 EOF
 
-" -------------- metals (scala lsp) stuff --------------------
+" -------------- nvim-tree settings --------------------
 lua <<EOF
---[[
-local api = vim.api
-local metals_config = require("metals").bare_config()
+vim.g.loaded = 1
+vim.g.loaded_netrwPlugin = 1
 
--- Example of settings
-metals_config.settings = {
-  showImplicitArguments = true,
-  excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
-}
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-metals_config.capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
-
--- Autocmd that will actually be in charging of starting the whole thing
-local nvim_metals_group = api.nvim_create_augroup("nvim-metals", { clear = true })
-vim.api.nvim_create_autocmd("FileType", {
-  -- NOTE: You may or may not want java included here. You will need it if you
-  -- want basic Java support but it may also conflict if you are using
-  -- something like nvim-jdtls which also works on a java filetype autocmd.
-  pattern = { "scala", "sbt" },
-  callback = function()
-    require("metals").initialize_or_attach(metals_config)
-  end,
-  group = nvim_metals_group,
+require("nvim-tree").setup({
+  view = {
+    mappings = {
+      list = {
+        { key = "l", action = "edit" },
+        { key = "h", action = "close_node" },
+        { key = "<BS>", action = "dir_up" },
+        { key = "<CR>", action = "cd" },
+      },
+    },
+  },
 })
---]]
 EOF
+
+noremap <leader>ee :NvimTreeToggle<CR>
+noremap <leader>er :NvimTreeRefresh<CR>
 
 
 " -------------- color scheme settings --------------------
@@ -435,10 +431,10 @@ if (has("termguicolors"))
 endif
 
 " set background=light
-let g:gruvbox_material_background = 'hard'
-let g:gruvbox_material_foreground = 'material'
-let g:gruvbox_material_better_performance = 1
-colorscheme gruvbox-material
+" let g:gruvbox_material_background = 'hard'
+" let g:gruvbox_material_foreground = 'material'
+" let g:gruvbox_material_better_performance = 1
+colorscheme onedark
 
 " -------------- airline settings --------------------
-let g:airline_theme = 'gruvbox_material'
+let g:airline_theme = 'onedark'
