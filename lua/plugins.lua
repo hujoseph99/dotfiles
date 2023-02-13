@@ -47,10 +47,6 @@ return packer.startup({
 
     -- TODO: investigate smart splits
 
-    --  use {
-    --    config = function() require('lspkind') end
-    --  }
-
     -- TODO: investigate barbar/barline, do I even need them
 
     -- file tree
@@ -62,9 +58,8 @@ return packer.startup({
       end,
     })
 
-    -- status line - TODO: Look at the potential integrations with other plugins i.e., buffer-line
-    use("vim-airline/vim-airline")
-    use("vim-airline/vim-airline-themes")
+    -- lualine
+    use("nvim-lualine/lualine.nvim")
 
     -- tree sitter
     use({

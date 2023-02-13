@@ -25,5 +25,4 @@ vim.opt.wildmenu = true
 
 vim.g.indentLine_char = "│"
 
-vim.cmd.colorscheme('onedark')
-vim.g.airline_theme = 'onedark'
+vim.cmd.colorscheme("onedark")

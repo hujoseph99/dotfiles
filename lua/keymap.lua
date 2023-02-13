@@ -73,7 +73,7 @@ keymap('n', 'ZZ', ':wa<CR>:qa!<CR>')
 keymap('n', 'zv', 'za')
 
 -- clear highlight for searches
-keymap('n', '<leader>ll', ':noh<CR>')
+keymap('n', '<leader>cl', ':noh<CR>')
 
 -- Neotree
 keymap('n', '<leader>e', ':Neotree toggle<CR>')
