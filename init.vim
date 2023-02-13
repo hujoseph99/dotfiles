@@ -48,10 +48,6 @@ nnoremap Y y$
 " Copy to system clipboard
 vnoremap Y "+y
 
-" Commentary
-nmap <leader>cc <Plug>CommentaryLine
-vmap <leader>cc <Plug>CommentaryLine
-
 nmap <leader>Y gg0vG$Y
 
 " folding
@@ -143,7 +139,7 @@ set smartcase
 set autoread " automatically load changed files when open
 set noswapfile " do not want swap files
 set belloff=all " stop annoying sounds"
-set colorcolumn=100
+set colorcolumn=80
 
 set listchars=tab:\|\ 
 set list
@@ -177,7 +173,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 
 " Comments
-Plug 'tpope/vim-commentary'
+Plug 'numToStr/Comment.nvim'
 
 " icons
 Plug 'ryanoasis/vim-devicons'
@@ -227,12 +223,27 @@ Plug 'scalameta/nvim-metals'
 " All of your Plugins must be added before the following line
 call plug#end()
 
+" comment nvim setup
+lua << EOF
+require('Comment').setup{
+  toggler = {
+    line = '<leader>cc',
+    block = '<leader>bc',
+  },
+  extra = {
+    above = '<leader>cO',
+    below = '<leader>co',
+    eol = '<leader>cA',
+  },
+}
+EOF
+
 " Tree-sitter lua setup
 lua <<EOF
 require("nvim-treesitter.configs").setup{
   ignore_install = { "latex" },
   ensure_installed = { "go", "html", "javascript", "json", "regex", "typescript", "vue", 
-    "java", "scala"
+    "java", "scala", "cpp"
   },
   indent = {
     enable = true
@@ -256,13 +267,13 @@ require("mason").setup({
 })
 
 require("mason-lspconfig").setup({
-  ensure_installed = { "pyright", "tsserver", "gopls", "jdtls" }
+  ensure_installed = { "pyright", "tsserver", "gopls", "jdtls", "clangd", "lua-language-server" }
 })
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '<space>d', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
@@ -281,7 +292,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'gk', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', 'ge', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
   vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
   vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
@@ -310,8 +321,8 @@ cmp.setup({
     end,
   },
   window = {
-    -- completion = cmp.config.window.bordered(),
-    -- documentation = cmp.config.window.bordered(),
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
     ['<C-k>'] = cmp.mapping.scroll_docs(-4),
@@ -355,6 +366,16 @@ require('lspconfig')['tsserver'].setup {
   capabilities = capabilities
 }
 require('lspconfig')['jdtls'].setup {
+  on_attach = on_attach,
+  flags = lsp_flags,
+  capabilities = capabilities
+}
+require('lspconfig')['clangd'].setup {
+  on_attach = on_attach,
+  flags = lsp_flags,
+  capabilities = capabilities
+}
+require('lspconfig')['sumneko_lua'].setup {
   on_attach = on_attach,
   flags = lsp_flags,
   capabilities = capabilities
@@ -423,6 +444,11 @@ require("nvim-tree").setup({
       list = list
     },
   },
+  actions = {
+    open_file = {
+      quit_on_open = true
+    }
+  }
 })
 EOF
 
