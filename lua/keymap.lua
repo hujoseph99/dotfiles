@@ -65,9 +65,10 @@ keymap('n', '<leader>Y', 'gg0vG$"+y') -- copy whole file
 
 -- saving file
 keymap('n', 'W', ':w<CR>')
-keymap('n', 'Q', ':Bdelete<CR>')
+keymap('n', 'Q', ':Bdelete!<CR>')
 keymap('n', '<leader>q', ':q<CR>')
 keymap('n', 'ZZ', ':wa<CR>:qa!<CR>')
+keymap('n', 'ZQ', ':qa!<CR>')
 
 -- folding
 keymap('n', 'zv', 'za')

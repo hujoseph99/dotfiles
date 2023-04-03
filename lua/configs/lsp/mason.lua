@@ -2,6 +2,7 @@ local servers = {
   "lua_ls",
   "pyright",
   "jsonls",
+  "omnisharp"
 }
 
 local mason_status_ok, mason = pcall(require, "mason")

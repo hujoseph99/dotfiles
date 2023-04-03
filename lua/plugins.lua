@@ -94,7 +94,30 @@ return packer.startup({
     use("jose-elias-alvarez/null-ls.nvim")
 
     -- highlighting references
-    use("RRethy/vim-illuminate")
+    use({
+      "RRethy/vim-illuminate",
+      config = function()
+        local status_ok, illuminate = pcall(require, "illuminate")
+        if not status_ok then
+          return
+        end
+
+        illuminate.configure({
+          providers = {
+            "lsp",
+            "treesitter",
+            "regex",
+          },
+          -- delay: delay in milliseconds
+          delay = 100,
+        })
+
+        -- https://github.com/RRethy/vim-illuminate/issues/115
+        vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "Visual" })
+        vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "Visual" })
+        vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "Visual" })
+      end,
+    })
 
     -- ==== Telescope ====
     use({
@@ -105,6 +128,7 @@ return packer.startup({
       "nvim-telescope/telescope-fzf-native.nvim",
       run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
     })
+    use({ "nvim-telescope/telescope-ui-select.nvim" })
 
     -- auto pairing
     use("windwp/nvim-autopairs")
@@ -127,6 +151,10 @@ return packer.startup({
       config = function()
         require("indent_blankline").setup({})
       end,
+    })
+
+    use({
+      "habamax/vim-godot",
     })
 
     -- colorschemes

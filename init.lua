@@ -1,6 +1,7 @@
 require("keymap")
 require("plugins")
 require("options")
+require("configs.lualine")
 require("configs.treesitter")
 require("configs.cmp")
 require("configs.lsp")

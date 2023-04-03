@@ -5,7 +5,7 @@ end
 
 treesitter.setup{
   ensure_installed = { "go", "html", "javascript", "json", "regex", "typescript", "scala", 
-    "python", "help", "vim" },
+    "python", "help", "vim", "c_sharp" },
   auto_install = true,
   indent = { enable = true },
   highlight = {

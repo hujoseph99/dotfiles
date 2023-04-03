@@ -3,14 +3,12 @@ if not status_ok then
   return
 end
 
-session.setup({})
+local keymap = vim.keymap.set
+keymap("n", "<leader>sa", ":SessionManager load_session<CR>")
+keymap("n", "<leader>sd", ":SessionManager delete_session<CR>")
+keymap("n", "<leader>ss", ":SessionManager save_current_session<CR>")
 
--- save session after saving buffer
-vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
-  group = config_group,
-  callback = function ()
-    if vim.bo.filetype ~= 'git'
-      and not vim.bo.filetype ~= 'gitcommit'
-      then session.autosave_session() end
-  end
+session.setup({
+  autosave_only_in_session = true,
 })
+
