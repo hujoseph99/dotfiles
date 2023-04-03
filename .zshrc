@@ -1,55 +1,55 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
-
-# If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 export GOPATH=$HOME/go
-export CLASSPATH=".:/usr/local/lib/antlr-4.10.1-complete.jar:$CLASSPATH"
-export PATH="/usr/local/opt/openjdk@8/bin:$PATH"
-export PERCY_TOKEN=caba8975b49dc738e132acc576927b27b102b340f1037c020c8f11cab9b3d982
+export PATH="/usr/local/share/dotnet/x64:/Users/josephhu/.cargo/bin:/opt/homebrew/opt/curl/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/curl/include"
 
-alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.10.1-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
-alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.10.1-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig'
+# CS451_DEPENDENCIES="/Users/josephhu/Documents/university/1229-2022-fall/CS451/dependencies"
+# CS451_MAVEN="$CS451_DEPENDENCIES/apache-maven-3.3.9/bin"
+# CS451_HADOOP="$CS451_DEPENDENCIES/hadoop-3.1.4/bin"
+# CS451_SCALA="$CS451_DEPENDENCIES/scala-2.11.8/bin"
+# CS451_SPARK="$CS451_DEPENDENCIES/spark-2.3.1-bin-hadoop2.7/bin"
 
-alias code="cd ~/code"
-alias dotfiles="cd ~/code/dotfiles"
-alias universe="cd ~/code/universe"
-alias h2ru="cd ~/code/universe/js/packages/editor; source /Users/joseph.hu/code/universe/js/env.sh init"
-alias viz="cd ~/code/universe/js/packages/visualization"
-alias h2ru1="yarn build"
-alias h2ru2="yarn dev-webpack-npm"
-alias h2ru3="yarn dev-webpack-workers"
-alias h2ru4="yarn storybook"
-alias h2r="cd /Users/joseph.hu/code/hue2redash"
-alias webapp="cd ~/code/universe/redash/managed_redash/packages/app"
-alias cleanSessions="rm Session.vim.*";
-alias mpoce="cd ~/code/vscode-extension-samples/lsp-embedded-language-service"
-alias mpocs="cd ~/code/vscode-extension-samples/lsp-sample"
-
-function fetchBranch { 
-  git fetch git@github.com:${1}/universe.git ${2}:${2} 
-}
+# export PATH="$CS451_MAVEN:$CS451_HADOOP:$CS451_SCALA:$CS451_SPARK:$PATH"
+# export PATH="/Library/Java/JavaVirtualMachines/jdk-19.jdk/Contents/Home/bin:$PATH"
+# export PATH="/Users/josephhu/.local/share/nvim/mason/bin:$PATH"
+# export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-19.jdk/Contents/Home/"
+# export HADOOP_OPTS="$HADOOP_OPTS -Djava.library.path=$HADOOP_HOME/lib/native"
 
 # ================   Aliases   ==================
+alias linux="ssh j268hu@linux.student.cs.uwaterloo.ca"
+alias linux2="ssh j268hu@ubuntu2004-002.student.cs.uwaterloo.ca"
+alias linux4="ssh j268hu@ubuntu2004-004.student.cs.uwaterloo.ca"
+alias linux8="ssh j268hu@ubuntu2004-008.student.cs.uwaterloo.ca"
+alias linux10="ssh j268hu@ubuntu2004-010.student.cs.uwaterloo.ca"
+alias datasci="ssh -D 1080 j268hu@datasci.cs.uwaterloo.ca"
+alias school="cd /Users/josephhu/Documents/university/1229-2022-fall" 
+alias crack="cd ~/code/learning/ctci-solutions"
+alias lc="cd ~/code/leetcode"
+alias qmk="cd ~/Documents/QMK"
+alias dotfiles="cd ~/code/dotfiles"
+alias cs451="cd /Users/josephhu/Documents/university/1229-2022-fall/CS451"
+alias bigdata="cd /Users/josephhu/Documents/university/1229-2022-fall/CS451/dependencies/bin; ./setup.sh; cd ../.."
+alias cs454="cd /Users/josephhu/Documents/university/1229-2022-fall/CS454"
+alias data="cd /Users/josephhu/.local/share/nvim"
+
+alias cleanSessions="rm Session.vim.*"
 alias zrc="nvim ~/.zshrc"
 alias szrc="source ~/.zshrc"
-alias nrc="nvim ~/.config/nvim/init.vim"
+alias nrc="cd ~/.config/nvim && nvim && cd -"
+alias yrc="nvim ~/.config/yabai/yabairc"
+alias src="nvim ~/.config/skhd/skhdrc"
+alias rc="cd ~/.config; nvim -S"
 
-DISABLE_MAGIC_FUNCTIONS=true
+alias mvn8="JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-8.jdk/Contents/Home/ && mvn"
+alias bloopMvnBuild="mvn8 ch.epfl.scala:maven-bloop_2.13:1.5.4:bloopInstall"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-POWERLEVEL9K_MODE='nerdfont-complete'
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 
@@ -59,6 +59,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     zsh-autosuggestions
+    zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -93,12 +94,30 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Reload the plugin to highlight the commands each time Iterm2 starts 
 
-### VISUAL CUSTOMISATION ### 
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Elements options of left prompt (remove the @username context)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs)
+# Elements options of right prompt
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(history command_execution_time time)
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Add a second prompt line for the command
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+# Add a space in the first prompt 
+POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%f"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#directory shorten length
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
+POWERLEVEL9K_SHORTEN_STRATEGY=Default
+
+# Visual customisation of the second prompt line
+local user_symbol="$"
+if [[ $(print -P "%#") =~ "#" ]]; then
+    user_symbol = "#"
+fi
+
+POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%{%B%F{black}%K{yellow}%} $user_symbol%{%b%f%k%F{yellow}%} %{%f%}"
+
+# Change the git status to red when something isn't committed and pushed
+POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='red'
+
+# Add a new line after the global prompt 
+POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
