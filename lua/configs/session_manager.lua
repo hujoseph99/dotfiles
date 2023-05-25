@@ -10,5 +10,6 @@ keymap("n", "<leader>ss", ":SessionManager save_current_session<CR>")
 
 session.setup({
   autosave_only_in_session = true,
+  autoload_mode = require('session_manager.config').AutoloadMode.LastSession,
 })
 

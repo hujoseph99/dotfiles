@@ -37,6 +37,7 @@ keymap('n', '<up>', ':res  +5<CR>')
 keymap('n', '<down>', ':res -5<CR>')
 keymap('n', '<right>', ':vertical resize+5<CR>')
 keymap('n', '<left>', ':vertical resize-5<CR>')
+
  
 
 --  ==========================
@@ -78,6 +79,7 @@ keymap('n', '<leader>cl', ':noh<CR>')
 
 -- Neotree
 keymap('n', '<leader>e', ':Neotree toggle<CR>')
+keymap('n', 'ge', ':Neotree reveal_force_cwd<CR>')
 
 keymap('n', 'cw', 'caw')
 keymap('n', 'dw', 'daw')

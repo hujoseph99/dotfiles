@@ -2,21 +2,21 @@
 --  =        packer          =
 --  ==========================
 local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({
-      "git",
-      "clone",
-      "--depth",
-      "1",
-      "https://github.com/wbthomason/packer.nvim",
-      install_path,
-    })
-    vim.cmd([[ packadd packer.nvim ]])
-    return true
-  end
-  return false
+	local fn = vim.fn
+	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+	if fn.empty(fn.glob(install_path)) > 0 then
+		fn.system({
+			"git",
+			"clone",
+			"--depth",
+			"1",
+			"https://github.com/wbthomason/packer.nvim",
+			install_path,
+		})
+		vim.cmd([[ packadd packer.nvim ]])
+		return true
+	end
+	return false
 end
 
 -- ensures that packer will be automatically installed if it's not already automatically installed
@@ -32,148 +32,134 @@ vim.cmd([[
 
 local status_ok, packer = pcall(require, "packer")
 if not status_ok then
-  return
+	return
 end
 
 return packer.startup({
-  function(use)
-    use("wbthomason/packer.nvim")
-    use("nvim-lua/plenary.nvim")
-    use("nvim-tree/nvim-web-devicons")
-    use("MunifTanjim/nui.nvim")
+	function(use)
+		use("wbthomason/packer.nvim")
+		use("nvim-lua/plenary.nvim")
+		use("nvim-tree/nvim-web-devicons")
+		use("MunifTanjim/nui.nvim")
 
-    -- smart indentation detection
-    use("Darazaki/indent-o-matic")
+		-- smart indentation detection
+		use("Darazaki/indent-o-matic")
 
-    -- TODO: investigate smart splits
+		-- TODO: investigate smart splits
 
-    -- TODO: investigate barbar/barline, do I even need them
+		-- TODO: investigate barbar/barline, do I even need them
+		use("f-person/git-blame.nvim")
 
-    -- file tree
-    use({
-      "nvim-neo-tree/neo-tree.nvim",
-      branch = "v2.x",
-      setup = function()
-        vim.g.neo_tree_remove_legacy_commands = true
-      end,
-    })
+		-- file tree
+		use({
+			"nvim-neo-tree/neo-tree.nvim",
+			branch = "v2.x",
+			setup = function()
+				vim.g.neo_tree_remove_legacy_commands = true
+			end,
+		})
 
-    -- lualine
-    use("nvim-lualine/lualine.nvim")
+		-- lualine
+		use("nvim-lualine/lualine.nvim")
 
-    -- tree sitter
-    use({
-      "nvim-treesitter/nvim-treesitter",
-      run = function()
-        local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
-        ts_update()
-      end,
-    })
-    use("windwp/nvim-ts-autotag") -- Autoclose tags
-    use("JoosepAlviste/nvim-ts-context-commentstring") -- Context based commenting
-    use("p00f/nvim-ts-rainbow") -- rainbow
+		-- tree sitter
+		use({
+			"nvim-treesitter/nvim-treesitter",
+			run = function()
+				local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
+				ts_update()
+			end,
+		})
+		use("windwp/nvim-ts-autotag")                    -- Autoclose tags
+		use("JoosepAlviste/nvim-ts-context-commentstring") -- Context based commenting
+		-- use("p00f/nvim-ts-rainbow")                      -- rainbow
 
-    -- ==== snippets ====
-    use("rafamadriz/friendly-snippets")
-    use("L3MON4D3/LuaSnip")
+		use("chentoast/marks.nvim")
 
-    -- ==== LSP stuff ====
-    use("neovim/nvim-lspconfig")
-    use("hrsh7th/nvim-cmp")
-    use("hrsh7th/cmp-nvim-lsp")
-    use("saadparwaiz1/cmp_luasnip")
-    use("hrsh7th/cmp-buffer")
-    use("hrsh7th/cmp-path")
-    use("onsails/lspkind.nvim")
+		-- ==== snippets ====
+		use("rafamadriz/friendly-snippets")
+		use("L3MON4D3/LuaSnip")
 
-    -- mason
-    use("williamboman/mason.nvim")
-    use("williamboman/mason-lspconfig.nvim")
+		-- ==== LSP stuff ====
+		use("neovim/nvim-lspconfig")
+		use("hrsh7th/nvim-cmp")
+		use("hrsh7th/cmp-nvim-lsp")
+		use("saadparwaiz1/cmp_luasnip")
+		use("hrsh7th/cmp-buffer")
+		use("hrsh7th/cmp-path")
+		use("onsails/lspkind.nvim")
 
-    -- formatting and diagnostics
-    use("jose-elias-alvarez/null-ls.nvim")
+		-- mason
+		use("williamboman/mason.nvim")
+		use("williamboman/mason-lspconfig.nvim")
 
-    -- highlighting references
-    use({
-      "RRethy/vim-illuminate",
-      config = function()
-        local status_ok, illuminate = pcall(require, "illuminate")
-        if not status_ok then
-          return
-        end
+		-- formatting and diagnostics
+		use("jose-elias-alvarez/null-ls.nvim")
 
-        illuminate.configure({
-          providers = {
-            "lsp",
-            "treesitter",
-            "regex",
-          },
-          -- delay: delay in milliseconds
-          delay = 100,
-        })
+		-- highlighting references
+		use("RRethy/vim-illuminate")
 
-        -- https://github.com/RRethy/vim-illuminate/issues/115
-        vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "Visual" })
-        vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "Visual" })
-        vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "Visual" })
-      end,
-    })
+		-- ==== Telescope ====
+		use({
+			"nvim-telescope/telescope.nvim",
+			tag = "0.1.1",
+		})
+		use({
+			"nvim-telescope/telescope-fzf-native.nvim",
+			run =
+			"cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+		})
+		use({ "nvim-telescope/telescope-ui-select.nvim" })
 
-    -- ==== Telescope ====
-    use({
-      "nvim-telescope/telescope.nvim",
-      tag = "0.1.1",
-    })
-    use({
-      "nvim-telescope/telescope-fzf-native.nvim",
-      run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-    })
-    use({ "nvim-telescope/telescope-ui-select.nvim" })
+		-- auto pairing
+		use("windwp/nvim-autopairs")
 
-    -- auto pairing
-    use("windwp/nvim-autopairs")
+		-- commenting
+		use("numToStr/Comment.nvim")
 
-    -- commenting
-    use("numToStr/Comment.nvim")
+		-- git signs
+		use("lewis6991/gitsigns.nvim")
 
-    -- git signs
-    use("lewis6991/gitsigns.nvim")
+		-- bufferline
+		use("akinsho/bufferline.nvim")
+		use("moll/vim-bbye")
 
-    -- bufferline
-    use("akinsho/bufferline.nvim")
-    use("moll/vim-bbye")
+		-- session management
+		use("Shatur/neovim-session-manager")
 
-    -- session management
-    use("Shatur/neovim-session-manager")
+		use({
+			"lukas-reineke/indent-blankline.nvim",
+			config = function()
+				require("indent_blankline").setup({})
+			end,
+		})
 
-    use({
-      "lukas-reineke/indent-blankline.nvim",
-      config = function()
-        require("indent_blankline").setup({})
-      end,
-    })
+		use({
+			"habamax/vim-godot",
+		})
 
-    use({
-      "habamax/vim-godot",
-    })
+		use({
+			"folke/which-key.nvim",
+		})
 
-    -- colorschemes
-    use("sickill/vim-monokai")
-    use("joshdick/onedark.vim")
-    use("sainnhe/everforest")
-    use("sainnhe/gruvbox-material")
+		-- colorschemes
+		use("sickill/vim-monokai")
+		use("navarasu/onedark.nvim")
+		use { "catppuccin/nvim", as = "catppuccin" }
+		use("sainnhe/everforest")
+		use("sainnhe/gruvbox-material")
 
-    -- Automatically set up your configuration after cloning packer.nvim
-    -- Put this at the end after all plugins
-    if packer_bootstrap then
-      require("packer").sync()
-    end
-  end,
-  config = {
-    display = {
-      open_fn = function()
-        return require("packer.util").float({ border = "single" })
-      end,
-    },
-  },
+		-- Automatically set up your configuration after cloning packer.nvim
+		-- Put this at the end after all plugins
+		if packer_bootstrap then
+			require("packer").sync()
+		end
+	end,
+	config = {
+		display = {
+			open_fn = function()
+				return require("packer.util").float({ border = "single" })
+			end,
+		},
+	},
 })

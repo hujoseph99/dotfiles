@@ -24,5 +24,3 @@ vim.opt.termguicolors = true
 vim.opt.wildmenu = true
 
 vim.g.indentLine_char = "│"
-
-vim.cmd.colorscheme("onedark")
