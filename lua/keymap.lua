@@ -38,8 +38,6 @@ keymap('n', '<down>', ':res -5<CR>')
 keymap('n', '<right>', ':vertical resize+5<CR>')
 keymap('n', '<left>', ':vertical resize-5<CR>')
 
- 
-
 --  ==========================
 --  =      moving text       =
 --  ==========================

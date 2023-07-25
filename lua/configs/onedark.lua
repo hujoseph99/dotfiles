@@ -3,4 +3,7 @@ if not status_ok then
   return
 end
 
-onedark.load()
+onedark.setup {
+  style = 'darker'
+}
+vim.cmd.colorscheme "onedark"

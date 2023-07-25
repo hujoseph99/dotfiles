@@ -84,6 +84,7 @@ M.on_attach = function(client, _)
 	if client.name == "sumneko_lua" then
 		client.server_capabilities.documentFormattingProvider = false
 	end
+
 	lsp_keymaps()
 end
 

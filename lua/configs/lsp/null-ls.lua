@@ -15,5 +15,7 @@ null_ls.setup({
 		formatting.eslint_d,
 		formatting.prettierd,
 		formatting.stylua,
+		diagnostics.shellcheck,
+		code_actions.shellcheck,
 	},
 })

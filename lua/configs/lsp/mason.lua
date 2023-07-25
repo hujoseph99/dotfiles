@@ -4,6 +4,7 @@ local servers = {
 	"jsonls",
 	"omnisharp",
 	"tsserver",
+	"bashls",
 }
 
 local mason_status_ok, mason = pcall(require, "mason")

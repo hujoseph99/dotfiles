@@ -5,11 +5,10 @@ end
 
 catppuccin.setup({
   flavour = "latte", -- latte, frappe, macchiato, mocha
-    background = { -- :h background
-        light = "latte",
-        dark = "mocha",
-    },
+  background = { -- :h background
+    light = "latte",
+    dark = "latte",
+  },
 })
 
 vim.cmd.colorscheme "catppuccin"
-vim.g.background = "light"

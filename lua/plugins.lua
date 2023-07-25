@@ -148,6 +148,7 @@ return packer.startup({
 		use { "catppuccin/nvim", as = "catppuccin" }
 		use("sainnhe/everforest")
 		use("sainnhe/gruvbox-material")
+		use("f-person/auto-dark-mode.nvim")
 
 		-- Automatically set up your configuration after cloning packer.nvim
 		-- Put this at the end after all plugins
