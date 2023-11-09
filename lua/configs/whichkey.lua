@@ -102,8 +102,8 @@ whichkey.register({
 	g = {
 		name = "LSP jumps",
 		D = { vim.lsp.buf.declaration, "jump to declaration" },
-		k = { vim.lsp.buf.hover, opts, "show details" },
-		l = { vim.diagnostic.open_float, opts, "show inline diagnostics" },
+		k = { vim.lsp.buf.hover, "show details" },
+		l = { vim.diagnostic.open_float, "show inline diagnostics" },
 		r = { builtin.lsp_references, "find references" },
 		i = { builtin.lsp_implementations, "find implementations" },
 		d = { builtin.lsp_definitions, "find definitions" },
@@ -111,6 +111,7 @@ whichkey.register({
 	},
 	Z = {
 		name = "closing files",
+		b = { ":%d|e#<cr>", "Close all buffers but the current one -- https://stackoverflow.com/a/42071865/516188"},
 		Z = { ":wa<CR>:qa!<cr>", "save then quit all" },
 		Q = { ":qa!<cr>", "force quit all" },
 	},

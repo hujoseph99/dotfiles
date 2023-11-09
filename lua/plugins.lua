@@ -93,6 +93,9 @@ return packer.startup({
 		use("williamboman/mason.nvim")
 		use("williamboman/mason-lspconfig.nvim")
 
+		-- copilot
+		use("github/copilot.vim")
+
 		-- formatting and diagnostics
 		use("jose-elias-alvarez/null-ls.nvim")
 
@@ -102,7 +105,6 @@ return packer.startup({
 		-- ==== Telescope ====
 		use({
 			"nvim-telescope/telescope.nvim",
-			tag = "0.1.1",
 		})
 		use({
 			"nvim-telescope/telescope-fzf-native.nvim",
@@ -121,7 +123,7 @@ return packer.startup({
 		use("lewis6991/gitsigns.nvim")
 
 		-- bufferline
-		use("akinsho/bufferline.nvim")
+		-- use("akinsho/bufferline.nvim")
 		use("moll/vim-bbye")
 
 		-- session management
@@ -130,13 +132,13 @@ return packer.startup({
 		use({
 			"lukas-reineke/indent-blankline.nvim",
 			config = function()
-				require("indent_blankline").setup({})
+				require("ibl").setup({})
 			end,
 		})
 
-		use({
-			"habamax/vim-godot",
-		})
+		-- use({
+		-- 	"habamax/vim-godot",
+		-- })
 
 		use({
 			"folke/which-key.nvim",

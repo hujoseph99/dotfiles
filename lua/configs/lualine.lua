@@ -3,6 +3,17 @@ if not lualine_status_ok then
 	return
 end
 
+local function diff_source()
+	local gitsigns = vim.b.gitsigns_status_dict
+	if gitsigns then
+		return {
+			added = gitsigns.added,
+			modified = gitsigns.changed,
+			removed = gitsigns.removed
+		}
+	end
+end
+
 lualine.setup({
 	options = {
 		component_separators = "|",
@@ -12,9 +23,11 @@ lualine.setup({
 		lualine_b = {
 			{
 				"branch",
-				shorting_target = 50,
+				fmt = function(str)
+					return str:sub(1, 40)
+				end,
 			},
-			"diff",
+			{ 'diff', source = diff_source },
 			"diagnostics",
 		},
 		lualine_c = {
@@ -36,6 +49,22 @@ lualine.setup({
 					unnamed = "[No Name]", -- Text to show for unnamed buffers.
 					newfile = "[New]", -- Text to show for newly created file before first write
 				},
+			},
+		},
+		lualine_x = {
+			{
+				function()
+					local is_loaded = vim.api.nvim_buf_is_loaded
+					local tbl = vim.api.nvim_list_bufs()
+					local loaded_bufs = 0
+					for i = 1, #tbl do
+						if is_loaded(tbl[i]) then
+							loaded_bufs = loaded_bufs + 1
+						end
+					end
+					return loaded_bufs
+				end,
+				icon = "﬘",
 			},
 		},
 	},
