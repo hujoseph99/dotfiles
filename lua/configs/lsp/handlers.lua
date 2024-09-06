@@ -25,7 +25,7 @@ M.setup = function()
 	local config = {
 		virtual_text = false, -- disable virtual text
 		signs = {
-			active = signs, -- show signs
+			active = signs,   -- show signs
 		},
 		update_in_insert = true,
 		underline = true,
@@ -63,9 +63,7 @@ local function lsp_keymaps()
 	keymap("n", "<leader>li", "<cmd>LspInfo<cr>", opts)
 	keymap("n", "<leader>lI", "<cmd>LspInstallInfo<cr>", opts)
 	keymap("n", "<leader>la", vim.lsp.buf.code_action, opts)
-	keymap("n", "<leader>lf", function()
-		vim.lsp.buf.format({ async = true })
-	end, opts)
+	keymap("n", "<leader>lf", "<cmd>Format<cr>", opts)
 	keymap("n", "<leader>lj", function()
 		vim.diagnostic.goto_next({ buffer = 0 })
 	end, opts)

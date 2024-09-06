@@ -9,7 +9,7 @@ local function diff_source()
 		return {
 			added = gitsigns.added,
 			modified = gitsigns.changed,
-			removed = gitsigns.removed
+			removed = gitsigns.removed,
 		}
 	end
 end
@@ -27,7 +27,7 @@ lualine.setup({
 					return str:sub(1, 40)
 				end,
 			},
-			{ 'diff', source = diff_source },
+			{ "diff", source = diff_source },
 			"diagnostics",
 		},
 		lualine_c = {
@@ -35,7 +35,7 @@ lualine.setup({
 				"filename",
 				file_status = true, -- Displays file status (readonly status, modified status)
 				newfile_status = false, -- Display new file status (new file means no write after created)
-				path = 1,           -- 0: Just the filename
+				path = 4, -- 0: Just the filename
 				-- 1: Relative path
 				-- 2: Absolute path
 				-- 3: Absolute path, with tilde as the home directory
@@ -44,27 +44,11 @@ lualine.setup({
 				shorting_target = 40, -- Shortens path to leave 40 spaces in the window
 				-- for other components. (terrible name, any suggestions?)
 				symbols = {
-					modified = "[+]", -- Text to show when the file is modified.
-					readonly = "[-]", -- Text to show when the file is non-modifiable or readonly.
-					unnamed = "[No Name]", -- Text to show for unnamed buffers.
-					newfile = "[New]", -- Text to show for newly created file before first write
+					modified = "󰏫",
+					readonly = "",
+					unnamed = "",
+					newfile = "",
 				},
-			},
-		},
-		lualine_x = {
-			{
-				function()
-					local is_loaded = vim.api.nvim_buf_is_loaded
-					local tbl = vim.api.nvim_list_bufs()
-					local loaded_bufs = 0
-					for i = 1, #tbl do
-						if is_loaded(tbl[i]) then
-							loaded_bufs = loaded_bufs + 1
-						end
-					end
-					return loaded_bufs
-				end,
-				icon = "﬘",
 			},
 		},
 	},

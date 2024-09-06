@@ -10,12 +10,10 @@ local code_actions = null_ls.builtins.code_actions
 null_ls.setup({
 	debug = false,
 	sources = {
-		diagnostics.eslint_d,
-		code_actions.eslint_d,
-		formatting.eslint_d,
+		require('none-ls.diagnostics.eslint'),
+		require('none-ls.code_actions.eslint'),
+		require('none-ls.formatting.eslint'),
 		formatting.prettierd,
 		formatting.stylua,
-		diagnostics.shellcheck,
-		code_actions.shellcheck,
 	},
 })

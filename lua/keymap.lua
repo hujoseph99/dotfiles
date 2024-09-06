@@ -73,6 +73,9 @@ keymap("n", "zv", "za")
 -- clear highlight for searches
 keymap("n", "<leader>cl", ":noh<CR>")
 
+-- copy file path
+keymap("n", "<leader>fp", ':let @+ = expand("%")<cr>')
+
 -- Neotree
 keymap("n", "<leader>e", ":Neotree toggle<CR>")
 keymap("n", "ge", ":Neotree reveal_force_cwd<CR>")

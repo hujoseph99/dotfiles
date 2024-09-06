@@ -70,7 +70,7 @@ return packer.startup({
 				ts_update()
 			end,
 		})
-		use("windwp/nvim-ts-autotag")                    -- Autoclose tags
+		use("windwp/nvim-ts-autotag") -- Autoclose tags
 		use("JoosepAlviste/nvim-ts-context-commentstring") -- Context based commenting
 		-- use("p00f/nvim-ts-rainbow")                      -- rainbow
 
@@ -95,9 +95,24 @@ return packer.startup({
 
 		-- copilot
 		use("github/copilot.vim")
+		use({
+			"jackMort/ChatGPT.nvim",
+			requires = {
+				"MunifTanjim/nui.nvim",
+				"nvim-lua/plenary.nvim",
+				"folke/trouble.nvim",
+				"nvim-telescope/telescope.nvim",
+			},
+		})
 
 		-- formatting and diagnostics
-		use("jose-elias-alvarez/null-ls.nvim")
+		use({
+			"stevearc/conform.nvim",
+			config = function()
+				require("conform").setup()
+			end,
+		})
+		use("mfussenegger/nvim-lint")
 
 		-- highlighting references
 		use("RRethy/vim-illuminate")
@@ -108,8 +123,7 @@ return packer.startup({
 		})
 		use({
 			"nvim-telescope/telescope-fzf-native.nvim",
-			run =
-			"cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+			run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
 		})
 		use({ "nvim-telescope/telescope-ui-select.nvim" })
 
@@ -131,23 +145,16 @@ return packer.startup({
 
 		use({
 			"lukas-reineke/indent-blankline.nvim",
-			config = function()
-				require("ibl").setup({})
-			end,
 		})
 
 		-- use({
 		-- 	"habamax/vim-godot",
 		-- })
 
-		use({
-			"folke/which-key.nvim",
-		})
-
 		-- colorschemes
 		use("sickill/vim-monokai")
 		use("navarasu/onedark.nvim")
-		use { "catppuccin/nvim", as = "catppuccin" }
+		use({ "catppuccin/nvim", as = "catppuccin" })
 		use("sainnhe/everforest")
 		use("sainnhe/gruvbox-material")
 		use("f-person/auto-dark-mode.nvim")
