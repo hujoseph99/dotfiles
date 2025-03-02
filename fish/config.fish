@@ -3,6 +3,7 @@ if status is-interactive
 end
 
 # environment variables
+set PATH /opt/homebrew/bin $PATH
 set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
 
 # aliases
