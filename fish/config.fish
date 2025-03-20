@@ -11,4 +11,6 @@ function gs
     command git status
 end
 
+set TERM xterm-256color
+
 starship init fish | source
