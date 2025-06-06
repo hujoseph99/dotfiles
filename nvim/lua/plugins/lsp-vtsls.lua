@@ -6,7 +6,7 @@ return {
         settings = {
           vtsls = {
             typescript = {
-              globalTsdk = "/Users/joseph.hu/code/universe/node_modules/typescript/lib",
+              globalTsdk = "~/universe/node_modules/typescript/lib",
             },
           },
           typescript = {

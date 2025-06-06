@@ -11,3 +11,4 @@ opt.autowrite = false
 opt.clipboard = ""
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp" }
 opt.mouse = ""
+opt.swapfile = false
