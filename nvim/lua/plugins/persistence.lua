@@ -50,13 +50,5 @@ return {
         vim.cmd("Neotree show filesystem left " .. cwd .. " reveal_force_cwd")
       end,
     })
-    vim.api.nvim_create_autocmd("VimEnter", {
-      callback = function()
-        if vim.fn.argc() == 0 then -- Only load the session if no files or directories are provided
-          require("persistence").load() -- Load the last session
-        end
-      end,
-      nested = true,
-    })
   end,
 }

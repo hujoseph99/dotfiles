@@ -6,8 +6,8 @@ vim.keymap.del("n", "<leader>cd") -- inline diagnostic
 
 local keymap = vim.keymap.set
 keymap("n", "gl", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
-keymap("n", "<leader>/", "gcc", { desc = "line comment" })
-keymap("v", "<leader>/", "gc", { desc = "line comment visual mode" })
+keymap("n", "<leader>/", "gcc", { desc = "line comment", remap = true })
+keymap("v", "<leader>/", "gc", { desc = "line comment visual mode", remap = true })
 keymap({ "n", "v" }, "<leader>lf", function()
   LazyVim.format({ force = true })
 end, { desc = "Format" })
