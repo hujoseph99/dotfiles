@@ -7,18 +7,6 @@ export PATH="/usr/local/share/dotnet/x64:/Users/josephhu/.cargo/bin:/opt/homebre
 export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/curl/include"
 
-# CS451_DEPENDENCIES="/Users/josephhu/Documents/university/1229-2022-fall/CS451/dependencies"
-# CS451_MAVEN="$CS451_DEPENDENCIES/apache-maven-3.3.9/bin"
-# CS451_HADOOP="$CS451_DEPENDENCIES/hadoop-3.1.4/bin"
-# CS451_SCALA="$CS451_DEPENDENCIES/scala-2.11.8/bin"
-# CS451_SPARK="$CS451_DEPENDENCIES/spark-2.3.1-bin-hadoop2.7/bin"
-
-# export PATH="$CS451_MAVEN:$CS451_HADOOP:$CS451_SCALA:$CS451_SPARK:$PATH"
-# export PATH="/Library/Java/JavaVirtualMachines/jdk-19.jdk/Contents/Home/bin:$PATH"
-# export PATH="/Users/josephhu/.local/share/nvim/mason/bin:$PATH"
-# export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-19.jdk/Contents/Home/"
-# export HADOOP_OPTS="$HADOOP_OPTS -Djava.library.path=$HADOOP_HOME/lib/native"
-
 # ================   Aliases   ==================
 alias linux="ssh j268hu@linux.student.cs.uwaterloo.ca"
 alias linux2="ssh j268hu@ubuntu2004-002.student.cs.uwaterloo.ca"

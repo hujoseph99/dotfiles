@@ -1,0 +1,1 @@
+chsh -s /opt/homebrew/bin/fish
