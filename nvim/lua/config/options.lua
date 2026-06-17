@@ -9,6 +9,6 @@ vim.g.lazyvim_picker = "auto"
 local opt = vim.opt
 opt.autowrite = false
 opt.clipboard = ""
-opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp" }
+opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 opt.mouse = ""
 opt.swapfile = false

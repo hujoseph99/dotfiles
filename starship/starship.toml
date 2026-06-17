@@ -58,6 +58,9 @@ symbol = " "
 
 [git_branch]
 symbol = " "
+format = "[$branch](bold purple) "
+truncation_length = 50
+truncation_symbol = "… "
 
 [git_commit]
 tag_symbol = '  '

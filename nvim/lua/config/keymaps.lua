@@ -11,6 +11,7 @@ keymap("v", "<leader>/", "gc", { desc = "line comment visual mode", remap = true
 keymap({ "n", "v" }, "<leader>lf", function()
   LazyVim.format({ force = true })
 end, { desc = "Format" })
+keymap("n", "<leader>cb", "<cmd>ChangeBackground<cr>")
 
 -- My keymaps
 --  ==========================
@@ -69,13 +70,7 @@ keymap("n", "<leader>q", "<cmd>q<CR>")
 keymap("n", "ZZ", "<cmd>wa<CR><cmd>qa!<CR>", { desc = "Close and save all files" })
 keymap("n", "ZQ", "<cmd>qa!<CR>", { desc = "Close all files without saving" })
 keymap("n", "ZB", function()
-  local bufs = vim.api.nvim_list_bufs()
-  local current_buf = vim.api.nvim_get_current_buf()
-  for _, i in ipairs(bufs) do
-    if i ~= current_buf then
-      require("bufdelete").bufdelete(i, true)
-    end
-  end
+  Snacks.bufdelete.all()
 end, { desc = "Close all buffers but the current one" })
 
 -- folding

@@ -1,64 +1,36 @@
 {
-  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.1",
   "schemes" : [
     {
+      "scrolling" : {
+        "acceleration" : {
+          "vertical" : 1
+        },
+        "reverse" : {
+          "vertical" : true
+        },
+        "distance" : {
+          "vertical" : 3
+        },
+        "speed" : {
+          "vertical" : 0
+        }
+      },
+      "pointer" : {
+        "disableAcceleration" : true
+      },
       "buttons" : {
         "universalBackForward" : true
       },
       "if" : {
         "device" : {
-          "category" : "mouse",
+          "vendorID" : "0x46d",
           "productID" : "0xc54d",
           "productName" : "USB Receiver",
           "serialNumber" : "318636643432",
-          "vendorID" : "0x46d"
-        }
-      },
-      "pointer" : {
-        "disableAcceleration" : true
-      },
-      "scrolling" : {
-        "acceleration" : {
-          "vertical" : 1
-        },
-        "distance" : {
-          "vertical" : 3
-        },
-        "reverse" : {
-          "vertical" : true
-        },
-        "speed" : {
-          "vertical" : 0
-        }
-      }
-    },
-    {
-      "if" : {
-        "device" : {
-          "category" : "mouse",
-          "productID" : "0xc09b",
-          "productName" : "PRO X 2",
-          "serialNumber" : "49A3436F",
-          "vendorID" : "0x46d"
-        }
-      },
-      "pointer" : {
-        "disableAcceleration" : true
-      },
-      "scrolling" : {
-        "acceleration" : {
-          "vertical" : 1
-        },
-        "distance" : {
-          "vertical" : 3
-        },
-        "reverse" : {
-          "vertical" : true
-        },
-        "speed" : {
-          "vertical" : 0
+          "category" : "mouse"
         }
       }
     }
-  ]
+  ],
+  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.0"
 }

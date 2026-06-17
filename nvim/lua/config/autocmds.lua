@@ -12,3 +12,16 @@
 --     Snacks.dashboard()
 --   end,
 -- })
+
+function ToggleBackgroundAndColorscheme()
+  if vim.o.background == "light" then
+    vim.o.background = "dark"
+    vim.cmd("colorscheme tokyonight") -- Change this to your preferred dark theme
+  else
+    vim.o.background = "light"
+    vim.cmd("colorscheme catppuccin-latte") -- Change this to your preferred light theme
+  end
+end
+
+-- Create a command :cb that runs the toggle function
+vim.api.nvim_create_user_command("ChangeBackground", ToggleBackgroundAndColorscheme, {})

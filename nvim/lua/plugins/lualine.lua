@@ -29,14 +29,16 @@ return {
       sections = {
         lualine_a = { "mode" },
         lualine_b = {
-          "branch",
-          fmt = function(str)
-            local max_len = 15
-            if #str > max_len then
-              return str:sub(1, max_len) .. "…"
-            end
-            return str
-          end,
+          {
+            "branch",
+            fmt = function(str)
+              local max_len = 15
+              if #str > max_len then
+                return str:sub(1, max_len) .. "…"
+              end
+              return str
+            end,
+          },
         },
 
         lualine_c = {
